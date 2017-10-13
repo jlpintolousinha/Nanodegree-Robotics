@@ -22,10 +22,9 @@
 [image2]: ./calibration_images/example_grid1.jpg
 [image3]: ./calibration_images/example_rock1.jpg 
 
-## [Rubric](https://review.udacity.com/#!/rubrics/916/view) Points
-### The rubric points will be individually mentioned at first. Each point will include a description of the implementation performed within, followed by an extended explanation in the subsequent sections.   
+## [Rubric](https://review.udacity.com/#!/rubrics/916/view) Points 
 
-#### 1. Rubric points 
+#### Summary
 
 The proposed project was developed following these steps:
 1. All required software to properly deploy The Roversim simulator was installed and tested.  
@@ -34,11 +33,23 @@ The proposed project was developed following these steps:
 4. Changes were implemented in the coding so perspective transformation, color thresholding, coordinates transformation and processing of images could be performed smoothly. 
 5. The files `perception.py`, `drive_rover.py`, `decision.py` and `supporting_functions.py` were analized so the modifications previously performed on the `Rover_Project_Test_Notebook` were translated and adapted. 
 6. Functions `perception_step()` and `decision_step()` were modified in order to generate an adequate response on the autonomous mode of the rover model.
-7. It was possible not only to accomplish 
+7. It was possible to accomplish the project's minimum requirements and a logic for the rover to succesfully pick all the localized rocks.  Nevertheless, the design of appropiate loops for allowing the rover to choose a non-explored area and returning to its initial position after picking all the rocks, are pending in the attached documents. 
+8. Conclusions are reocmmendations for improvement are included in the respective sections. 
 
 ### Notebook Analysis
-#### 1. Run the functions provided in the notebook on test images (first with the test data provided, next on data you have recorded). Add/modify functions to allow for color selection of obstacles and rock samples.
-Here is an example of how to include an image in your writeup.
+
+The functions provided in the notebook were initially tested with test data provided in the repository. Path was also modified to match the that of the personal PC in order to properly random pick an image. 
+
+For the identification of navigable terrain versus obstacles, a pick of (160, 160, 160) RGB pixels was initially considered. Other ranges were properly tested, but last numbers provided the best resolution in terms of light intensity reflection. Therefore, all pixels above this threshold were determined to be ground or navigable terrain, while the obstacles were all those below. 
+
+Regarding rocks' identification, an image including a rock (e.g. `example_rock1.jpg`) was analized in jupyter notebook so the RGB pixel values could be visualized. Due to the different set of yellow combinations, the ranges that proved to be the most effective  for the detection of rocks were:
+1. Between 110 and 215 pixels for the Red channel
+2. Between 110 and 200 pixels for the Green channel
+3. Between 5 and 50 pixels for the Blue channel. 
+
+Keeping the above values in mind, and considering that the `color_thresh()` function had already some code written for ground detection, both obstacles' and rocks' detection included the same steps. That is, a matrix of zeros accounting for the size of the image was initally created; a boolean operation was then performed to define `True` or `1` values for the pixels whose position followed the mentioned criteria; and such positions would finally be considered for indexing the `True` values onto the zeros-filled matrices, detemining therefore which pixels would contribute for the generation of each color channel. 
+
+The `color_thresh()` function returned a tuple of three elements all contained in `Threshed[0]`, `Threshed[1]` and `Threshed[2]`, for which a warped image was passed as an argument. The results are three images configured to display in white the results of applying the above thresholds to the three color channels of the example image. 
 
 ![alt text][image1]
 
