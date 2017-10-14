@@ -118,9 +118,9 @@ def decision_step(Rover):
                 if Rover.samples_collected == 6:
                     Rover.throttle = 0
                     Rover.brake = Rover.brake_set*0.5
-                    Rover.steer = 0                   
-                    
-
+                    Rover.steer = 0 
+					Rover.mode = 'forward'
+					
     # Just to make the rover do something 
     # even if no modifications have been made to the code
     else:
