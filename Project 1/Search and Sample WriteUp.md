@@ -34,7 +34,7 @@ The proposed project was developed following these steps:
 5. The files `perception.py`, `drive_rover.py`, `decision.py` and `supporting_functions.py` were analized so the modifications previously performed on the `Rover_Project_Test_Notebook` were translated and adapted. 
 6. Functions `perception_step()` and `decision_step()` were modified in order to generate an adequate response on the autonomous mode of the rover model.
 7. It was possible to accomplish the project's minimum requirements and a logic for the rover to succesfully pick all the localized rocks.  Nevertheless, the design of appropiate loops for allowing the rover to choose a non-explored area and returning to its initial position after picking all the rocks, are pending in the attached documents. 
-8. Conclusions are reocmmendations for improvement are included in the respective sections. 
+8. Conclusions are recommendations for improvement are included in the respective section. 
 
 ### Notebook Analysis
 
