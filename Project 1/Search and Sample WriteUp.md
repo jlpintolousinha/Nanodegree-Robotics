@@ -41,7 +41,7 @@ The proposed project was developed following these steps:
 ### Notebook Analysis
 
 #### 1. The `Color_thresh()` funtion. 
-The functions provided in the notebook were initially tested with data provided in the repository; initilially specified file path was modified to match that of the personal PC before attempting to pick an image at random. Because of the Notebook formatting, input and output line numbers will be provided throughout this section. 
+The functions provided in the notebook were initially tested with data provided in the repository; initilially specified file path was modified to match that of the personal PC before attempting to pick an image at random. 
 
 For the identification of navigable terrain versus obstacles, a set of (160, 160, 160) RGB pixels was initially considered. Other ranges were properly tested, but last numbers provided the best resolution in terms of light intensity reflection. Therefore, all pixels above this threshold were determined to be ground or navigable terrain, while the obstacles were all those below. 
 
