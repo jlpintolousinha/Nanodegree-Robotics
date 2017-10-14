@@ -63,18 +63,18 @@ These profiles (ground + obstacles + rocks) all together created the filter to b
 ![alt text][image1]
 
 #### 2. The `process_image()` function  
-Provided that the `color_thresh()` function filtered all the perceived images properly, the idea of where the Rover could drive to was considered next. Assume that for instance all the pixels were filtered and a continuous image of `navigable terrain` was generated. This data would then have to be tranlated into a worldmap such that ground, obstacles and rocks are visually available to determine which path the rover followe din the long run. 
+Provided that the `color_thresh()` function filtered all the perceived images properly, determine where the Rover could drive to was the next step. Assume that all pixels are filtered and a continuous image of `navigable terrain` generated. This data would have to be tranlated into a worldmap such that ground, obstacles and rocks are visually available in order to understand the path the Rover followed. 
 
-I such sense of ideas, the `process_image()` function was populated with several functions that:
+In such sense of ideas, the `process_image()` function was populated with several functions that:
 1. Defined both source and destination for the perspective transform to be generated.
-2. Applied the perspective transform to the saved images while keeping both source and destination as working parameters, further saving its results to a local variable in line 108 of perception.py file. 
-3. `color_threshold()` function received this local variable as argument to identify navigable terrain, obstacles and rocks, which was achievable due to the ranges imposed for the 3 different areas. Recall that the function was modified so a tuple of three elements was returned by the function after it ran. As an example, the next figuras include navigable terrain, obstacles and a rock sample to be picked.   
+2. Applied the perspective transform to the saved images while keeping both source and destination as working parameters and further saving its results to a local variable in line 108 of perception.py file. 
+3. `color_threshold()` function then received this local variable as argument to identify navigable terrain, obstacles and rocks (achieved due to ranges imposed for the 3 different areas). That bbeen said, the function had to be modified so a tuple of three elements was returned by the function after it ran instead of the original two. Consider the next figure as an example that includes navigable terrain, obstacles and a rock sample to be picked:   
 
 ![alt text][image2]
 
 4. The filtered images pixels were then translated into Rover coordinates. As the Rover is the only source of information, each pixel position needs to be properly calculated, and this applies to the three mentoned areas: navigable space, obstacles and rocks.  
-5. All pixels were then rotated/translated into world's frame of reference. That is, we know where they're from Rover's perspective, but in order to get them into the real world image, a conversion of coordinates is accomplished by using Rover's stored parameters of `(x,y)` posion and orientation (yaw).  
-6. `Worldmap` was then updated as the Rover moved along its path. That is, knowing the pixel's position at each time step (at each stored image) allows to associate the intensity to each of the color channels to such positions in the map. Blue (navigable) areas were defined to be more bright than the red ones (obstacles) per each time step. 
+5. All pixels were therefore rotated/translated into world's frame of reference. In order to portary them into the real world image, a conversion of coordinates was accomplished by using Rover's stored parameters of `(x,y)` posion and orientation (yaw).  
+6. `Worldmap` was then updated as the Rover moved along the navigable terrain. That is, knowing the pixel's position at each time step (at each stored image) allows to associate the intensity to each of the color channels to such positions in the map. Blue (navigable) areas were defined to be more bright than the red ones (obstacles) as per each time step. 
 
 A video of around eight seconds was constructed with the data gathered during the recording session. As expected, colored areas in the map changed as per the Rover's direction, due to the population of such regions on the map with those of the output data.
 
