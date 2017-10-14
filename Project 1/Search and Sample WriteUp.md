@@ -124,3 +124,5 @@ Different techniques could be useful to improve this model even further:
 2. Steering/thrust values could be adaptable in terms of the Rover's current situation. That is, if the Rover gets stuck, it could easily accelerate further and return to its original value after the situation is solved. Adaptative control techniques could be used for this model, but it may require an effort that is out of the scope for this project. 
 
 3. A GPS could be implemented as well in order to better compare Rover's current position regarding the worldmap, with the original point of departure. In other words, position of the rocks samples could be regarded as waypoints to be followed in terms of the Rover's current position.    
+
+As a conclusion, it was a challenge to take to Rover project this far with flow-control functions determining the actions the Rover should fowlow next. It would have been good to have some sort of an idea to properly implement it, but it all part of the learning process.
