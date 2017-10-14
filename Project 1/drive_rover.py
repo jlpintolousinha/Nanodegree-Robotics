@@ -87,7 +87,6 @@ class RoverState():
         self.starting_point = (ground_truth.shape[0]/2,ground_truth.shape[1]/2)
         self.starting_point_dist = 0
         self.starting_point_angle = 0
-        self.pos_list = []   #Pretented to store the Rover's position
 # Initialize our rover 
 Rover = RoverState()
 

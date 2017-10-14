@@ -90,17 +90,30 @@ In `forward` mode, the Rover will identify (according to image perception) wheth
 2. If rocks are available to pick up, the Rover's camera will show them on the screen (see line 145 in perception.py file), the Rover will stop accelerating, make a stop and then switch to `rock mode`. 
 3. If all the samples have been collected and there're no more amples to find, the Rover will steer towards the angle fed by `Rover.starting_point_angle` (defined in line 165 of perception.py). Subsequently, once Rover's position matches the point recorded at the beginning of the simulation, the Rover will switch to `stop` and no further action will occur. 
 
-In `rock` mode, the Rover will add one to the `Rover.samples_located` counter and steer towards the rock shown in the screen (the relative angle of the rock is calculated in line 146 of perception.py). As the Rover gets closer to the sample, the `picking_up` command (line 131) required for the Rover's arm to move will be sent once `Rover.near_sample` is True. However, it may happen that while getting closer to the sample, its angle is not small enough to make the variable True, in which case the Rover will steer 15 or -15 degrees depending on the angle's sign. Once the rock is picked, the Rover will accelerate, steer to the navigable zone and switch to `forward mode` (nonetheles, if all the rock samples have been collected, the Rover will be set to `forward` mode in order to reach the point were the simulation started (defined as `Rover.starting_point` in line 32 of `supporting_functions.py` file) and eventually stop once the point is reached).  
+In `rock` mode, the Rover will add one to the `Rover.samples_located` counter and steer towards the rock shown in the screen (the relative angle of the rock is calculated in line 146 of perception.py). As the Rover gets closer to the sample, the `picking_up` command (line 131) required for the Rover's arm to move will be sent once `Rover.near_sample` is True. However, it may happen that while getting closer to the sample, its angle is not small enough to make the variable True, in which case the Rover will steer 15 or -15 degrees depending on the angle's sign. Once the rock is picked, the Rover will accelerate, steer to the navigable zone and switch to `forward mode` (nonetheles, if all the rock samples have been collected, the Rover will be set to `forward` mode in order to reach the point were the simulation started (defined as `Rover.starting_point` in line 87 of `drive_rover.py` file) and eventually stop once the point is reached).  
 
 In `stop`mode, the speed value will be compared to 0.2 to either determine if the Rover's still moving. If True, brakes will be further applied (0.5 gain in line 96) in order for the Rover to stop. Once stopped, image processing will determine if navigation angles' array length is lower than the `Rover.stop_forward` thershold (line 101), or if on the contrary it is higher than the `Rover.go_forward` element (line 108). The former statement allows to figure out if the Rover reached a dead end, while the latter provides feedback whether it is possible to continue its journey (and this applies also to the case where `Rover.rock_in_the_middle` was previously set to True). 
 
 Remember to include some pics!
 
-#### 2. Results during Autonomous mode. 
+#### 2. Results
+Autonomous mode was ran using a 800 x 600 screen resolution (windowed) with good graphics quality, at a rate of 15 FPS. The simulation turned out to accomplish the requirements of mapping and fidelity. The rover is also capable of finding samples and pick them up as it gets close ot it. However, the model include certain drawbacks that are worth to mention:
 
-**Note: running the simulator with different choices of resolution and graphics quality may produce different results, particularly on different machines!  Make a note of your simulator settings (resolution and graphics quality set on launch) and frames per second (FPS output to terminal by `drive_rover.py`) in your writeup when you submit the project so your reviewer can reproduce your results.**
+1. Rock samples that although observed in eyes of the user, may not be detected by the Rover's camera. That been said, scaling the rocks so the are bigger in relation to the perpective image would solve the issue in the long run so the Rover doesn;t spend much time looking for the samples. 
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+2. Although the Rover steer to according to the mean angle formed by the navigable pixels, there's no logic implemented for discerning whether a zone in the map has been previously explored. For instance, in case two zones were equally navigable, a human operator would have to determine which zone is better for the Rover to go given certain conditions like number of samples found, zones in the map left, etc. 
+
+3. It may not possible for the Rover to keep moving in case a big obstacle blocks its path (i.e. a big terrain rock). The logic implemented on line 26 of decision.py will work 50% to 60% of the time it if is obvious that the Rover being block from going forward; however, if the edges of these obstacles are no smooth enough, the perspective transform won't be adequate to actually determine that the `Rover.stop_forward` thershold has been outstripped. 
+
+4. The logic implemented to return to the original point of departure (line 36 of decision.py) will not work if the Rover is very far from it. That is, the Rover will steer to the angle formed by the middle point of the map (which is fixed per definition) and the origin (0,0), and it may loop indefinitely between the `forward` and the `stop` mode if it hits an obstacle during its way. 
+
+Different techniques could be useful to improve this model even further:
+
+1. Define a cost function to differentiate the 'unknown' navigable terrain from that already explored. In this case, the Rover would follow the path where such function is mimimized in time, as the `Rover.worldmap` elements gets increased in the Red channel per explored pixels.
+
+2. Steering/thrust values could be adaptable in terms of the Rover's current situation. That is, if the Rover gets stuck, it could easily accelerate further and return to its original value after the situation is solved. Adaptative control techniques could be used for this model, but it may require an effort that is out of the scope for this project. 
+
+3. A GPS could be implemented for the Rover as well in order to better 
 
 
 
