@@ -28,7 +28,8 @@ def update_rover(Rover, data):
             if np.isfinite(tot_time):
                   Rover.total_time = tot_time
                   
-    Rover.pos_list.append(Rover.pos)              
+    Rover.pos_list.append(Rover.pos)   
+	Rover.starting_point = Rover.pos_list.append[0] 
     # Print out the fields in the telemetry data dictionary
     print(data.keys())
     # The current speed of the rover in m/s

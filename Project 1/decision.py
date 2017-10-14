@@ -35,11 +35,10 @@ def decision_step(Rover):
                 
                 if Rover.samples_collected == 6 and Rover.samples_to_find == 0:
                     Rover.steer = np.clip(np.mean(Rover.starting_point_angle * 180/np.pi), -15, 15)     
-
-                if Rover.pos == Rover.starting_point:
-                    Rover.throttle = 0
-                    Rover.brake = Rover.brake_set*0.5
-                    Rover.mode = 'stop'                                                 
+					if Rover.pos == Rover.starting_point:
+						Rover.throttle = 0
+						Rover.brake = Rover.brake_set*0.5
+						Rover.mode = 'stop'                                                 
             else:
                 Rover.throttle = 0
                 Rover.brake = Rover.brake_set*0.5
@@ -119,7 +118,7 @@ def decision_step(Rover):
                     Rover.throttle = 0
                     Rover.brake = Rover.brake_set*0.5
                     Rover.steer = 0 
-					Rover.mode = 'forward'
+
 					
     # Just to make the rover do something 
     # even if no modifications have been made to the code
