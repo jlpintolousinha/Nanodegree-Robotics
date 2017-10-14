@@ -16,8 +16,6 @@
 * Fill in the `decision_step()` function within the `decision.py` script with conditional statements that take into consideration the outputs of the `perception_step()` in deciding how to issue throttle, brake and steering commands. 
 * Iterate on your perception and decision function until your rover does a reasonable (need to define metric) job of navigating and mapping.  
 
-[//]: # (Image References)
-
 [image1]: ./misc/rover_image.jpg
 [image2]: ./calibration_images/example_grid1.jpg
 [image3]: ./calibration_images/example_rock1.jpg 
@@ -39,9 +37,9 @@ The proposed project was developed following these steps:
 ### Notebook Analysis
 
 #### 1. The `Color_thresh()` funtion. 
-The functions provided in the notebook were initially tested with test data provided in the repository. Path was also modified to match the that of the personal PC in order to properly random pick an image. 
+The functions provided in the notebook were initially tested with data provided in the repository; initilially specified file path was modified to match that of the personal PC before attempting to pick an image at random. Because of the Notebook formatting, input and output line numbers will be provided throughout this section. 
 
-For the identification of navigable terrain versus obstacles, a pick of (160, 160, 160) RGB pixels was initially considered. Other ranges were properly tested, but last numbers provided the best resolution in terms of light intensity reflection. Therefore, all pixels above this threshold were determined to be ground or navigable terrain, while the obstacles were all those below. 
+For the identification of navigable terrain versus obstacles, a set of (160, 160, 160) RGB pixels was initially considered. Other ranges were properly tested, but last numbers provided the best resolution in terms of light intensity reflection. Therefore, all pixels above this threshold were determined to be ground or navigable terrain, while the obstacles were all those below. 
 
 Regarding rocks' identification, an image including a rock (e.g. `example_rock1.jpg`) was analized in jupyter notebook so the RGB pixel values could be visualized. Due to the different set of yellow combinations, the ranges that proved to be the most effective  for the detection of rocks were:
 1. Between 110 and 215 pixels for the Red channel
@@ -76,10 +74,29 @@ Remember to include some pics!
 ![alt text][image2]
 ### Autonomous Navigation and Mapping
 
-#### 1. Fill in the `perception_step()` (at the bottom of the `perception.py` script) and `decision_step()` (in `decision.py`) functions in the autonomous mapping scripts and an explanation is provided in the writeup of how and why these functions were modified as they were.
+#### 1. The `perception_step()` and `decision_step()`
+These functions respectively included in perception.py and decision.py were modified to implement the autonomous mode in the simulation. The code described in the provious section was included in perception.py, while a decision-making process was written in decision.py in the form of a flow-control methodology. 
 
+Regarding perception.py, two differences stand out:
 
-#### 2. Launching in autonomous mode your rover can navigate and map autonomously.  Explain your results and how you might improve them in your writeup.  
+1. Rover's position is provided at every time step by Rover.pos. This class element is included from lines 124 to 126 when both rotation and translation of rover-centric pixel values to world coordinates are calculated. This process is carried for all three elements present in the Rover's path (navigable terrain, obstacles and rocks) so both distance and angle relative to the Rover is calulated per every time step. 
+
+2. Current Rover's angle is calculated and updated in line 135 every time step. Because this value is the main trigger for the flow-control methodology to start (as included in line 15 of decision.py file), it is observable from the very beginning that, even though `decision_step()` has not been modified, the Rover will start to navigate through the brightest pixels while avoiding obstacles (i.e. walls).
+
+Once the flow-control triggers, the modifications introduced in decision.py play a major role: `decision_step()` function allows to differentiate whether the Rover's moving forward (`forward mode`in line 17), or if it finds a rock to pick (`rock mode`in line 59), or if can't move forward anymore (`stop mode` in line 92). 
+
+In `forward` mode, the Rover will identify (according to image perception) whether the length of the navigation angles' array is higher than a defined threshold (`Rover.stop_forward`). It will compare the Rover's velocity to zero in order to set accelerate (via `Rover.set_throttle_set`) and set the bakes to zero. If the number of pixels for ground or navigable terrain are less than the mentioned threshold, the code is set for the Rover to stop accelerating, apply the brakes and switch to `stop` mode. In addtion, three intermediate decision logics were included:
+1. To detect sparsed obstacles during navigation (see line 26), the Rover checks if its trajectory is blocked and it is not longer possible to move forward, in which case it switches to `stop` mode. The reporting variable `Rover.rock_in_the_middle` was defined to account for this scenario in order to keep a better control over the simulation. 
+2. If rocks are available to pick up, the Rover's camera will show them on the screen (see line 145 in perception.py file), the Rover will stop accelerating, make a stop and then switch to `rock mode`. 
+3. If all the samples have been collected and there're no more amples to find, the Rover will steer towards the angle fed by `Rover.starting_point_angle` (defined in line 165 of perception.py). Subsequently, once Rover's position matches the point recorded at the beginning of the simulation, the Rover will switch to `stop` and no further action will occur. 
+
+In `rock` mode, the Rover will add one to the `Rover.samples_located` counter and steer towards the rock shown in the screen (the relative angle of the rock is calculated in line 146 of perception.py). As the Rover gets closer to the sample, the `picking_up` command (line 131) required for the Rover's arm to move will be sent once `Rover.near_sample` is True. However, it may happen that while getting closer to the sample, its angle is not small enough to make the variable True, in which case the Rover will steer 15 or -15 degrees depending on the angle's sign. Once the rock is picked, the Rover will accelerate, steer to the navigable zone and switch to `forward mode` (nonetheles, if all the rock samples have been collected, the Rover will be set to `forward` mode in order to reach the point were the simulation started (defined as `Rover.starting_point` in line 32 of `supporting_functions.py` file) and eventually stop once the point is reached).  
+
+In `stop`mode, the speed value will be compared to 0.2 to either determine if the Rover's still moving. If True, brakes will be further applied (0.5 gain in line 96) in order for the Rover to stop. Once stopped, image processing will determine if navigation angles' array length is lower than the `Rover.stop_forward` thershold (line 101), or if on the contrary it is higher than the `Rover.go_forward` element (line 108). The former statement allows to figure out if the Rover reached a dead end, while the latter provides feedback whether it is possible to continue its journey (and this applies also to the case where `Rover.rock_in_the_middle` was previously set to True). 
+
+Remember to include some pics!
+
+#### 2. Results during Autonomous mode. 
 
 **Note: running the simulator with different choices of resolution and graphics quality may produce different results, particularly on different machines!  Make a note of your simulator settings (resolution and graphics quality set on launch) and frames per second (FPS output to terminal by `drive_rover.py`) in your writeup when you submit the project so your reviewer can reproduce your results.**
 
@@ -88,5 +105,3 @@ Here I'll talk about the approach I took, what techniques I used, what worked an
 
 
 ![alt text][image3]
-
-
