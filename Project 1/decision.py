@@ -98,7 +98,7 @@ def decision_step(Rover):
             elif Rover.vel <= 0.2:
                 # Now we're stopped and we have vision data to see if there's a path forward
                 if (len(Rover.nav_angles) < Rover.stop_forward) or Rover.rock_in_the_middle == True: 
-                    Rover.throttle = Rover.throttle = Rover.throttle_set*-1
+                    Rover.throttle = Rover.throttle_set*-1
                     # Release the brake to allow turning
                     Rover.brake = 0
                     # Turn range is +/- 15 degrees, when stopped the next line will induce 4-wheel turning
