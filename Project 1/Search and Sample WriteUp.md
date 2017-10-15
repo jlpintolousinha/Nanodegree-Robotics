@@ -21,8 +21,6 @@
 [image3]: ./image_3.jpg 
 [image4]: ./image_4.jpg
 [image5]: ./rock_img_warped.jpg
-[image6]: ./image_5.jpg
-[image7]: ./image_6.jpg
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/916/view) Points 
 
@@ -36,54 +34,50 @@ The proposed project was developed following these steps:
 5. The files `perception.py`, `drive_rover.py`, `decision.py` and `supporting_functions.py` were analized so the modifications previously performed on the `Rover_Project_Test_Notebook` were translated and adapted. 
 6. Functions `perception_step()` and `decision_step()` were modified in order to generate an adequate response on the autonomous mode of the rover model.
 7. It was possible to accomplish the project's minimum requirements and a logic for the rover to succesfully pick all the localized rocks.  Nevertheless, the design of appropiate loops for allowing the rover to choose a non-explored area and returning to its initial position after picking all the rocks, are pending in the attached documents. 
-8. Conclusions are recommendations for improvement are included in the respective section. 
+8. Conclusions are reocmmendations for improvement are included in the respective sections. 
 
 ### Notebook Analysis
 
 #### 1. The `Color_thresh()` funtion. 
-The functions provided in the notebook were initially tested with data provided in the repository; initilially specified file path was modified to match that of the personal PC before attempting to pick an image at random. 
+The functions provided in the notebook were initially tested with data provided in the repository; initilially specified file path was modified to match that of the personal PC before attempting to pick an image at random. Because of the Notebook formatting, input and output line numbers will be provided throughout this section. 
 
-For the identification of navigable terrain versus obstacles, a set of (160, 160, 160) RGB pixels was initially considered. Other ranges were properly tested, but last numbers provided the best resolution in terms of light intensity reflection. Therefore, all pixels above this threshold were determined to be ground or navigable terrain, while the obstacles were all those below. 
+For the identification of navigable terrain versus obstacles, a set of (160, 160, 160) RGB pixels was initially considered. Other ranges were properly tested, but last numbers provided the best resolution in terms of light intensity reflection. Therefore, all pixels above this threshold were determined to be ground or navigable terrain, while the obstacles were all those below (see input line 22). 
 
-![alt_text][image6] 
-
-Regarding rocks' identification, an image including a rock (e.g. `example_rock1.jpg`) was analized in jupyter notebook so the RGB pixel values could be visualized. Due to the different set of yellow combinations, the ranges that proved to be the most effective  for the detection of rocks were:
+Regarding rocks' identification (see iinput line 22), an image including a rock (e.g. `example_rock1.jpg`) was analized in jupyter notebook so the RGB pixel values could be visualized. Due to the different set of yellow combinations, the ranges that proved to be the most effective  for the detection of rocks were:
 1. Between 110 and 215 pixels for the Red channel
 2. Between 110 and 200 pixels for the Green channel
 3. Between 5 and 50 pixels for the Blue channel. 
 
-Keeping the above values in mind, and considering that the `color_thresh()` function had already some code written for ground detection, both obstacles' and rocks' detection included the same steps. That is, a matrix of zeros accounting for the size of the image was initally created; a boolean operation was then performed to define `True` or `1` values for the pixels whose position followed the thershold criteria, taking such positions for indexing the `True` values onto the zeros-filled matrices, and therefore determining which pixels contributed for the generation of each color channel. 
+Keeping the above values in mind, and considering that the `color_thresh()` function had already some code written for ground detection, both obstacles' and rocks' detection included the same steps. That is, a matrix of zeros accounting for the size of the image was initally created; a boolean operation was then performed to define `True` or `1` values for the pixels whose position followed the mentioned criteria; and such positions would finally be considered for indexing the `True` values onto the zeros-filled matrices, detemining therefore which pixels would contribute for the generation of each color channel. 
 
-In a nutshell, the `color_thresh()` function returned a tuple of three elements contained in `Threshed[0]`, `Threshed[1]` and `Threshed[2]`, for which a warped image was passed as an argument. The results are three images configured to display in white the results of applying the above thresholds to the three color channels on the example image:
+The `color_thresh()` function returned a tuple of three elements all contained in `Threshed[0]`, `Threshed[1]` and `Threshed[2]`, for which a warped image was passed as an argument. The results are three images configured to display in white the results of applying the above thresholds to the three color channels of the example image.
 
-![alt_text][image7] 
-
-These profiles (ground + obstacles + rocks) all together created the filter to be applied to the images perceived/generated by the Rover's camera so all three elements could be processed in the `process_image()` function. On the other hand, a so called 'mask' was provided to limit the obstacles' displayed area to that perceived by the Rover. As a matter of fact, if it is not used, the image perceived by the Rover's camera will include whole red background that is not a real depiction of the visualized environment. 
+These profiles (ground + obstacles + rocks) all together created the filter to be applied to the images perceived/generated by the Rover's camera so all three elements could be processed in the `process_image()` function. In addition, as a suggestion from the Project Walkthrough Video, a so called 'mask' (see input line 20) was provided to limit the obstacles' observed area to the one perceived by the Rover. Conversely, the image perceived by the Rover's camera would include a whole red background if such suggection was not followed. As a matter of fact, this is not a real depiction of the perceived environment. 
 
 ![alt text][image1]
 
 #### 2. The `process_image()` function  
-Provided that the `color_thresh()` function filtered all the perceived images properly, determine where the Rover could drive to was the next step. Assume that all pixels are filtered and a continuous image of `navigable terrain` generated. This data would have to be tranlated into a worldmap such that ground, obstacles and rocks are visually available in order to understand the path the Rover followed. 
+Provided that the `color_thresh()` function filtered all the perceived images properly, the `process_image()` fucntion was modified to consider where the Rover could drive to. Assume that for instance all the pixels were filtered and a continuous image of `navigable terrain` was generated. This data would then have to be tranlated into a worldmap such that ground, obstacles and rocks are visually available to determine which path the rover followe din the long run. 
 
-In such sense of ideas, the `process_image()` function was populated with several functions that:
+In such sense of ideas, the `process_image()` function (see input line 33) was populated with several functions that:
 1. Defined both source and destination for the perspective transform to be generated.
-2. Applied the perspective transform to the saved images while keeping both source and destination as working parameters and further saving its results to a local variable in line 108 of perception.py file. 
-3. `color_threshold()` function then received this local variable as argument to identify navigable terrain, obstacles and rocks (achieved due to ranges imposed for the 3 different areas). That bbeen said, the function had to be modified so a tuple of three elements was returned by the function after it ran instead of the original two. Consider the next figure as an example that includes navigable terrain, obstacles and a rock sample to be picked:   
+2. Applied the perspective transform to the saved images while keeping both source and destination as working parameters, further saving its results to a local variable in line 108 of perception.py file. 
+3. `color_threshold()` function received this local variable as argument to identify navigable terrain, obstacles and rocks, which was achievable due to the ranges imposed for the 3 different areas. Recall that the function was modified so a tuple of three elements was returned by the function after it ran. As an example, the next figuras include navigable terrain, obstacles and a rock sample to be picked.   
 
 ![alt text][image2]
 
 4. The filtered images pixels were then translated into Rover coordinates. As the Rover is the only source of information, each pixel position needs to be properly calculated, and this applies to the three mentoned areas: navigable space, obstacles and rocks.  
-5. All pixels were therefore rotated/translated into world's frame of reference. In order to portary them into the real world image, a conversion of coordinates was accomplished by using Rover's stored parameters of `(x,y)` posion and orientation (yaw).  
-6. `Worldmap` was then updated as the Rover moved along the navigable terrain. That is, knowing the pixel's position at each time step (at each stored image) allows to associate the intensity to each of the color channels to such positions in the map. Blue (navigable) areas were defined to be more bright than the red ones (obstacles) as per each time step. 
+5. All pixels were then rotated/translated into world's frame of reference. That is, we know where they're from Rover's perspective, but in order to get them into the real world image, a conversion of coordinates is accomplished by using Rover's stored parameters of `(x,y)` posion and orientation (yaw).  
+6. `Worldmap` was then updated as the Rover moved along its path. That is, knowing the pixel's position at each time step (at each stored image) allows to associate the intensity to each of the color channels to such positions in the map. Blue (navigable) areas were defined to be more bright than the red ones (obstacles) per each time step. 
 
 A video of around eight seconds was constructed with the data gathered during the recording session. As expected, colored areas in the map changed as per the Rover's direction, due to the population of such regions on the map with those of the output data.
 
 ### Autonomous Navigation and Mapping
 
 #### 1. The `perception_step()` and `decision_step()`
-These functions respectively included in perception.py and decision.py were modified to implement the autonomous mode in the simulation. The code described in the provious section was included in perception.py, while a decision-making process was written in decision.py in the form of a flow-control methodology. 
+These functions respectively included in perception.py and decision.py were modified to implement the autonomous mode in the simulation. The code described in the previous section was included in perception.py file, while a decision-making process was written in decision.py using a flow-control methodology. 
 
-Regarding perception.py, two differences stand out:
+Regarding perception.py, two differences stand out regarding `Rover_Project_Test_Notebook.ipynb`:
 
 1. Rover's position is provided at every time step by Rover.pos. This class element is included from lines 124 to 126 when both rotation and translation of rover-centric pixel values to world coordinates are calculated. This process is carried for all three elements present in the Rover's path (navigable terrain, obstacles and rocks) so both distance and angle relative to the Rover is calulated per every time step. 
 
@@ -123,6 +117,4 @@ Different techniques could be useful to improve this model even further:
 
 2. Steering/thrust values could be adaptable in terms of the Rover's current situation. That is, if the Rover gets stuck, it could easily accelerate further and return to its original value after the situation is solved. Adaptative control techniques could be used for this model, but it may require an effort that is out of the scope for this project. 
 
-3. A GPS could be implemented as well in order to better compare Rover's current position regarding the worldmap, with the original point of departure. In other words, position of the rocks samples could be regarded as waypoints to be followed in terms of the Rover's current position.    
-
-As a conclusion, it was a challenge to take to Rover project this far with flow-control functions determining the actions the Rover should fowlow next. It would have been good to have some sort of an idea to properly implement it, but it all part of the learning process.
+3. A GPS could be implemented as well in order to better compare Rover's current position regarding the worldmap, with the original point of departure. In other words, position of the rocks samples could be regarded as waypoints to be followed in terms of the Rover's current position, but that would imply that rocks' position is known from the beginning.   
