@@ -45,7 +45,7 @@ Joint|Alpha | A | D | Theta
 5 | -pi/2 | 0      | 0    | 0
 6 | 0     | 0      | 0.303| 0
 
-To properly read the table, each row should be accounted as the relationship between the lower and higher index joint (i.e., row 0 translates the relationship between the base frame and the first joint). On the other hand, the disposition of the frames at joints 4, 5 and 6 allowed to define a single point as a `Wrist-Center` that would ease the relationship between the base link and the gripper position. As a matter of fact, the reference frames of the `Wrist-Center` can be translated to the that of the gripper by includding a link offset of 0.303 meters (see row 6 of the table).  
+To properly read the table, each row should be accounted as the relationship between the lower and higher index joint (i.e., row 0 translates the relationship between the base frame and the first joint). On the other hand, the disposition of the joints 4, 5 and 6 allowed to consider the case of spherical wrist, and define the intersection point of such axes (at joint 5) as a `Wrist-Center` that would express how the base link and the gripper position are linked. As a matter of fact, the reference frames of the `Wrist-Center` can be translated to the that of the gripper by includding a link offset of 0.303 meters (see row 6 of the table).  
 
 Keeping these parameters, a generalized homogeneous transform `T` between base link and gripper could be constructed by concatenating translations and rotations from the origin all the way through to the gripper, hence establishing the Forward Kinematics analysis of the robot. That been said, knowing the general form of a homogeneous transformation as
 
@@ -59,7 +59,7 @@ It is possible to substitute the values of the DH table and concatenate each tra
 
 T0_G = T0_1 \* T1_2 \* T2_3 \* T3_4 \* T4_5 \* T5_6 \* T6_G
 
-With zero being the base link and G the gripper. Take into account that  
+With zero being the base link and G the gripper. Take into account that rotation matrices can be extracted from the different homogeneous transforms as shown in lines 82 to 88 of `IK_server.py`.   
 
 #### Inverse Kinematics 
 At this point, it becomes necessary to determine all individual joint angles given a certain position (otherwise, the robot won't know which configuration to take for that). In order to derive these equations, the problem should be divided into inverse position kinematics and inverse orientation kinematics.
@@ -72,6 +72,7 @@ Once the correction is calculated, and the gripper's pose assigned to the variab
             wy = EE_pos[1] - (0.303)*Rrpy[1,2]
             wz = EE_pos[2] - (0.303)*Rrpy[2,2]
 
+Where `EE_pos` is the vector containind current gripper's pose; `Rrpy` stands as the total rotation of the gripper around the axes X (for roll), Y (for pitch) and Z (for yaw), with the mentioned correction included; and 0.303 meters is the distance between the gripper and the `Wrist-Center`. 
 
 
 ![alt text][image2]
