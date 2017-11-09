@@ -72,7 +72,7 @@ Once the correction is calculated, and the gripper's pose assigned to the variab
             wy = EE_pos[1] - (0.303)*Rrpy[1,2]
             wz = EE_pos[2] - (0.303)*Rrpy[2,2]
 
-Where `EE_pos` is the vector containind current gripper's pose; `Rrpy` stands as the total rotation of the gripper around the axes X (for roll), Y (for pitch) and Z (for yaw), with the mentioned correction included; and 0.303 meters is the distance between the gripper and the `Wrist-Center`. 
+Where `EE_pos` is the vector containind current gripper's pose; `Rrpy` stands as the total rotation of the gripper around the axes X (for roll), Y (for pitch) and Z (for yaw), with the mentioned correction included, referenced from the base link; and 0.303 meters is the distance between the gripper and the `Wrist-Center`. 
 
 Finally, keeping in mind that the `Wrist-Center`pose is known and all links' lengths have been registered in the DH table and are also included in the `kr210.urdf.xacro` file, it was possible to get the angles associated to joints 1, 2 and 3 as:
 1. `theta_1`,  calculated by projecting `Wrist-Center` position on the XY plane, for which `theta1 = atan2(wy,wx)`
@@ -80,9 +80,20 @@ Finally, keeping in mind that the `Wrist-Center`pose is known and all links' len
 
 ![image2]
 
-The resulting equations `theta2 = pi/2 - angle_a - atan2((wz-0.75),sqrt(wx*wx + wy*wy)-0.35)` and `theta3 = pi/2 - angle_b - 0.036` are included in lines 168 and 169 of the `IK_server.py` file. 
+The resulting equations `theta2 = pi/2 - angle_a - atan2((wz-0.75),sqrt(wx*wx + wy*wy)-0.35)` and `theta3 = pi/2 - angle_b - 0.036` are included in lines 168 and 169 of the `IK_server.py` file. It is important to point out that the image provided for such calculations was found via the `Slack Robotics Nanodegree` channel and is referenced for such objective. 
 
-For the **inverse orientation** side, 
+For the **inverse orientation** side, considering the angles of the first three joints were available, and that the rotation matrix from the base link to the gripper was also available via `Rrpy`, the last joint angles were determined based on the expression `R3_G = R0_3_new.transpose() * Rrpy`. As a matter of fact, a symbolic evaluation of the resulting matrix was necessary to determine which terms could be used to extract the Euler Angles associated to it (the expression is included in lines 179 and 180 of the file `IK_debug.py`):
+
+                        -sin(q4)sin(q6) + cos(q4)cos(q5)cos(q6) | -sin(q4)cos(q6) - sin(q6)cos(q4)cos(q5) | -sin(q5)cos(q4)
+                        sin(q5)cos(q6) | -sin(q5)sin(q6) | cos(q5)
+                        -sin(q4)cos(q5)cos(q6) - sin(q6)cos(q4) |-sin(q4)sin(q6)cos(q5) - cos(q4)cos(q6) | sin(q4)sin(q5)
+
+The accounted to make the following relations for such Euler Angles as
+
+                            theta4 = atan2(R3_G[2,2],-R3_G[0,2]) 
+                            theta5 = atan2(sqrt(R3_G[0,2]*R3_G[0,2] + R3_G[2,2]*R3_G[2,2]),R3_G[1,2])
+                            theta6 = atan2(-R3_G[1,1], R3_G[1,0])
+
 
 ### Project Implementation
 
