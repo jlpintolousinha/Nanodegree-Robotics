@@ -12,7 +12,6 @@
 
 
 [//]: # (Image References)
-
 [image1]: ./misc_images/misc1.png
 [image2]: ./misc_images/misc2.png
 [image3]: ./misc_images/misc3.png
@@ -23,16 +22,18 @@ Summary
 
 The proposed project was developed following these steps:
 1. All required software and packages were installed in Linux VM. 
-2. 
+2. ROS packages were tested and ran under Linux enviroment.
+3. A ROS enviroment was setup for Gazebo, RViz and Moveit! to properly execute. 
+4. A kinematics analysis was performed for the Kuka Arm KR210; `kr210.urdf.xacro` file was also studied to determine the relationship between each of the arm's joints.
+5. Coding was included in `IK_debug.py` to check Forward Kinematics calculation. 
+6. `IK_server.py` was modified and positevely tested afterwards. 
 
 ### Kinematic Analysis
-#### 1. Run the forward_kinematics demo and evaluate the kr210.urdf.xacro file to perform kinematic analysis of Kuka KR210 robot and derive its DH parameters.
-
-Here is an example of how to include an image in your writeup.
+Before the analysis, two checks were performed": static configuration and dynamic behavior. That is, observing the robot's model via `load_urdf.launch` in RViz allowed to better understand its composition of 6 joints plus 5 links and a gripper or end-effector, while running safe_spawner.sh under `Demo mode` helped to determine the robot's space of operation and limits. 
 
 ![alt text][image1]
 
-#### 2. Using the DH parameter table you derived earlier, create individual transformation matrices about each joint. In addition, also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
+Keeping in mind these two factors, the Denavit-Hartenberg convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). The generated table 
 
 Here's | A | Snappy | Table
 --- | --- | --- | ---
@@ -40,6 +41,10 @@ Here's | A | Snappy | Table
 2 | a | b | c
 3 | *italic* | text | 403
 4 | 2 | 3 | abcd
+
+ also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
+
+
 
 #### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
