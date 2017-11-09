@@ -49,12 +49,11 @@ To properly read the table, each row should be accounted as the relationship bet
 
 Keeping these parameters, a generalized homogeneous transform `T` between base link and gripper could be constructed by concatenating translations and rotations from the origin all the way through to the gripper, hence establishing the Forward Kinematics analysis of the robot. That been said, knowing the general form of a homogeneous transformation as
 
-cos(theta_i)| -sin(theta_i)| 0 | ai_1
---- | --- | --- | --- 
-sin(theta_i)\*cos(alphai_1) | cos(theta_i)\*cos(alphai_1) |	-sin(alphai_1) |    -sin(alphai_1)\*di
-sin(theta_i)\*sin(alphai_1) | cos(theta_i)\*sin(alphai_1) | cos(alphai_1) | 	cos(alphai_1)\*di
-0                           |						                	0|		     		 0|			        			1
-
+                    cos(theta_i)       |       -sin(theta_i)        |        0       |        ai_1
+            sin(theta_i)*cos(alphai_1) | cos(theta_i)*cos(alphai_1) | -sin(alphai_1) |  -sin(alphai_1)*di
+            sin(theta_i)*sin(alphai_1) | cos(theta_i)*sin(alphai_1) |  cos(alphai_1) |   cos(alphai_1)*di
+                           0           |               0            |	    0        |          1
+                           
 It is possible to substitute the values of the DH table and concatenate each transformation so that
 
 T0_G = T0_1 \* T1_2 \* T2_3 \* T3_4 \* T4_5 \* T5_6 \* T6_G
