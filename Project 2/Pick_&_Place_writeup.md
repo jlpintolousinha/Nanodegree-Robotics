@@ -33,7 +33,7 @@ Before the analysis, two checks were performed": static configuration and dynami
 
 ![alt text][image1]
 
-Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). As the base frame (at the origin) is of interest in determining the proper position of the gripper, the element was included in the table. The DH table resulted as follows, including both the twist (**Alpha**) and joint (**Theta** or **q**) angles of the elements:  
+Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). As the base link (at the origin) is of interest in determining the proper position of the gripper, the element was included in the table. The DH table resulted as follows, including both the twist (**Alpha**) and joint (**Theta** or **q**) angles of the elements:  
 
 Joint|Alpha | A | D | Theta
 --- | --- | --- | --- | ---
@@ -45,9 +45,9 @@ Joint|Alpha | A | D | Theta
 5 | -pi/2 | 0      | 0    | 0
 6 | 0     | 0      | 0.303| 0
 
-Keep in mind that to properly read the table, each row should be accounted as the relationship between the lower and higher index joint (i.e., row 0 translates the relationship between the base frame and the first joint). On the other hand, the disposition of the frames at joints 4, 5 and 6 allowed to define a single point as a `Wrist Center` that would ease the relationship between the base link and the gripper position. As a matter of fact, the reference frames of the `Wrist Center` can be translated to the that of the gripper by includding a link offset of 0.303 meters (see row 6 of the table).  
+To properly read the table, each row should be accounted as the relationship between the lower and higher index joint (i.e., row 0 translates the relationship between the base frame and the first joint). On the other hand, the disposition of the frames at joints 4, 5 and 6 allowed to define a single point as a `Wrist Center` that would ease the relationship between the base link and the gripper position. As a matter of fact, the reference frames of the `Wrist Center` can be translated to the that of the gripper by includding a link offset of 0.303 meters (see row 6 of the table).  
 
- also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
+Keeping these parameters, a generalized homogeneous transform `T` between base link and gripper could be constructed by concatenating translations and rotations from the origin all the way through to the gripper, hence establishing the Forward Kinematics analysis of the robot:
 
 
 
