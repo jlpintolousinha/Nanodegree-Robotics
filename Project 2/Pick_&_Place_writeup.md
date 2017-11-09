@@ -84,9 +84,9 @@ The resulting equations `theta2 = pi/2 - angle_a - atan2((wz-0.75),sqrt(wx*wx + 
 
 For the **inverse orientation** side, considering the angles of the first three joints were available, and that the rotation matrix from the base link to the gripper was also available via `Rrpy`, the last joint angles were determined based on the expression `R3_G = R0_3_new.transpose() * Rrpy`. As a matter of fact, a symbolic evaluation of the resulting matrix was necessary to determine which terms could be used to extract the Euler Angles associated to it (the expression is included in lines 179 and 180 of the file `IK_debug.py`):
 
-                        -sin(q4)sin(q6) + cos(q4)cos(q5)cos(q6) | -sin(q4)cos(q6) - sin(q6)cos(q4)cos(q5) | -sin(q5)cos(q4)
-                        sin(q5)cos(q6) | -sin(q5)sin(q6) | cos(q5)
-                        -sin(q4)cos(q5)cos(q6) - sin(q6)cos(q4) |-sin(q4)sin(q6)cos(q5) - cos(q4)cos(q6) | sin(q4)sin(q5)
+            -sin(q4)sin(q6) + cos(q4)cos(q5)cos(q6) |-sin(q4)cos(q6) - sin(q6)cos(q4)cos(q5) | -sin(q5)cos(q4)
+                            sin(q5)cos(q6)          |             -sin(q5)sin(q6)            |     cos(q5)
+            -sin(q4)cos(q5)cos(q6) - sin(q6)cos(q4) |-sin(q4)sin(q6)cos(q5) - cos(q4)cos(q6) | sin(q4)sin(q5)
 
 The accounted to make the following relations for such Euler Angles as
 
