@@ -33,14 +33,16 @@ Before the analysis, two checks were performed": static configuration and dynami
 
 ![alt text][image1]
 
-Keeping in mind these two factors, the Denavit-Hartenberg convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). The generated table 
+Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). The DH table resulted as follows, including both twist (\alpha) and joint (\theta) angles:  
 
-Here's | A | Snappy | Table
+Alpha | A's | D's | Theta's
 --- | --- | --- | ---
 1 | `highlight` | **bold** | 7.41
 2 | a | b | c
 3 | *italic* | text | 403
 4 | 2 | 3 | abcd
+5 | 2 | 3 | abcd
+6 | 2 | 3 | abcd
 
  also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
