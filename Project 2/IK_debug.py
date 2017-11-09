@@ -167,7 +167,8 @@ def test_code(test_case):
 
     theta2 = pi/2 - angle_a - atan2((wz-0.75),sqrt(wx*wx + wy*wy)-0.35)
     theta3 = pi/2 - angle_b - 0.036  #due to the -0.054 offset in link 4
-
+	
+	#Inverse orientation
     #for the last 3 joints, is necessary to substitube the previously calculated values:
     R0_3_new = T0_1[0:3,0:3] * T1_2[0:3,0:3] * T2_3[0:3,0:3]
     R0_3_new = R0_3_new.evalf(subs={q1: theta1, q2: theta2, q3: theta3})

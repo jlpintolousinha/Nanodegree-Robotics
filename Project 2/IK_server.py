@@ -121,7 +121,8 @@ def handle_calculate_IK(req):
             wy = EE_pos[1] - (0.303)*Rrpy[1,2]
             wz = EE_pos[2] - (0.303)*Rrpy[2,2]
 
-            # to calculate the joint angles, a top-down view of the kuka arm helpful. Take into account that the walk-through video was used to check how these angles were calculated:
+            # to calculate the joint angles, a top-down view of the kuka arm helpful. 
+			#Take into account that the walk-through video was used to check how these angles were calculated:
             theta1 = atan2(wy,wx) 
 
             #checking the triangle formed by joints 2 and 3 plus the wrist center position:
@@ -137,6 +138,7 @@ def handle_calculate_IK(req):
             theta2 = pi/2 - angle_a - atan2((wz-0.75),sqrt(wx*wx + wy*wy)-0.35)
             theta3 = pi/2 - angle_b - 0.036  #due to the -0.054 offset in link 4
             
+			#Inverse orientation
             #for the last 3 joints, is necessary to substitube the previously calculated values:
             R0_3_new = T0_1[0:3,0:3] * T1_2[0:3,0:3] * T2_3[0:3,0:3]
             R0_3_new = R0_3_new.evalf(subs={q1: theta1, q2: theta2, q3: theta3})
