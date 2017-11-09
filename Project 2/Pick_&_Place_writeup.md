@@ -12,7 +12,7 @@
 
 
 [//]: # (Image References)
-[image1]: ./misc_images/misc1.png
+[image1]: ./joint_axes.png
 [image2]: ./misc_images/misc2.png
 [image3]: ./misc_images/misc3.png
 
@@ -29,9 +29,9 @@ The proposed project was developed following these steps:
 6. `IK_server.py` was modified and positevely tested afterwards. 
 
 ### Forward Kinematics
-Before the analysis, two checks were performed": static configuration and dynamic behavior. That is, observing the robot's model via `load_urdf.launch` in RViz allowed to better understand its composition of 6 joints plus 5 links and a gripper or end-effector, while running safe_spawner.sh under `Demo mode` helped to determine the robot's space of operation and limits. 
+Before the analysis, two checks were performed": static configuration and dynamic behavior. That is, observing the robot's model via `load_urdf.launch` in RViz (see image below) allowed to better understand its composition of 6 joints plus 5 links and a gripper or end-effector, while running safe_spawner.sh under `Demo mode` helped to determine the robot's space of operation and limits. I
 
-![alt text][image1]
+![image1]
 
 Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). As the base link (at the origin) is of interest in determining the proper position of the gripper, the element was included in the table. The DH table resulted as follows, including both the twist (**Alpha**) and joint (**Theta** or **q**) angles of the elements:  
 
