@@ -64,7 +64,15 @@ With zero being the base link and G the gripper. Take into account that
 #### Inverse Kinematics 
 At this point, it becomes necessary to determine all individual joint angles given a certain position (otherwise, the robot won't know which configuration to take for that). In order to derive these equations, the problem should be divided into inverse position kinematics and inverse orientation kinematics.
 
-For the **inverse position** part, as the pose of the gripper is provided by a ROS service message in the form of pitch, roll and yaw, it is necessary to translate this coordinates in terms of the `Wrist-Center` reference frame. The reason is apparent when we realized it is the only link we have between the gripper and the base link of the robot. However, a simple translation is not enough: as the gripper reference frame is rotated 180° over the Z-axis plus another -90° over the y-axis (see image above), a low level correction is required in terms such  angles:
+For the **inverse position** part, as the pose of the gripper is provided by a ROS service message in the form of pitch, roll and yaw, it is necessary to translate this coordinates in terms of the `Wrist-Center` reference frame. The reason is apparent when we realized it is the only link we have between the gripper and the base link of the robot. However, a simple translation is not enough: as the gripper reference frame is rotated 180° over the Z-axis plus another -90° over the y-axis (see image above), a low level correction is required before translating such frame to that of the `Wrist-Center` (lines 91 to 93 of `IK_server.py`).
+
+Once the correction is calculated, and the gripper's pose assigned to the variables px, py and pz (lines 104 to 106 of `IK_server.py`), the `Wrist-Center` position can be calculated as:
+
+            wx = EE_pos[0] - (0.303)*Rrpy[0,2]
+            wy = EE_pos[1] - (0.303)*Rrpy[1,2]
+            wz = EE_pos[2] - (0.303)*Rrpy[2,2]
+
+
 
 ![alt text][image2]
 
