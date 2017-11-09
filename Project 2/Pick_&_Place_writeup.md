@@ -74,8 +74,13 @@ Once the correction is calculated, and the gripper's pose assigned to the variab
 
 Where `EE_pos` is the vector containind current gripper's pose; `Rrpy` stands as the total rotation of the gripper around the axes X (for roll), Y (for pitch) and Z (for yaw), with the mentioned correction included; and 0.303 meters is the distance between the gripper and the `Wrist-Center`. 
 
+Finally, keeping in mind that the `Wrist-Center`pose is known and all links' lengths have been registered in the DH table and are also included in the `kr210.urdf.xacro` file, it was possible to get the angles associated to joints 1, 2 and 3 as:
+1. `theta_1`,  calculated by projecting `Wrist-Center` position on the XY plane, for which `theta1 = atan2(wy,wx)`
+2. `theta_2` and `theta_3`, determined via cosine law while using the image below as a reference:
 
 ![image2]
+
+The resulting equations `theta2 = pi/2 - angle_a - atan2((wz-0.75),sqrt(wx*wx + wy*wy)-0.35)` and `theta3 = pi/2 - angle_b - 0.036` are included in lines 168 and 169 of the `IK_server.py` file. 
 
 For the **inverse orientation** side, 
 
