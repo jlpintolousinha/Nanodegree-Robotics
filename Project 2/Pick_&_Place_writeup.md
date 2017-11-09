@@ -33,17 +33,19 @@ Before the analysis, two checks were performed": static configuration and dynami
 
 ![alt text][image1]
 
-Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). As the base frame (at the origin) is of interest in determining the proper position of the gripper, the element was included in the table. The DH table resulted as follows, including both twist (**Alpha**) and joint (**Theta** or **q**) angles:  
+Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). As the base frame (at the origin) is of interest in determining the proper position of the gripper, the element was included in the table. The DH table resulted as follows, including both the twist (**Alpha**) and joint (**Theta** or **q**) angles of the elements:  
 
 Joint|Alpha | A | D | Theta
 --- | --- | --- | --- | ---
-0 | 0     | 0    | 0.75 | 0
-1 | -pi/2 | 0.35 | 0    | -pi/2
-2 | 0     | 1.25 | 0    | 0
-3 | *italic* | text | 403
-4 | 2 | 3 | abcd
-5 | 2 | 3 | abcd
-6 | 2 | 3 | abcd
+0 | 0     | 0      | 0.75 | 0
+1 | -pi/2 | 0.35   | 0    | -pi/2
+2 | 0     | 1.25   | 0    | 0
+3 | -pi/2 | -0.054 | 1.5  | 0
+4 | pi/2  | 0      | 0    | 0
+5 | -pi/2 | 0      | 0    | 0
+6 | 0     | 0      | 0.303| 0
+
+Keep in mind that to properly read the table, each row should be accounted as the relationship between the lower and higher index joint (i.e., row 0 translates the relationship between the base frame and the first joint). On the other hand, the disposition of the frames at joints 4, 5 and 6 allowed to define a single point as a `Wrist Center` that would ease the relationship between the base link and the gripper position. As a matter of fact, the reference frames of the `Wrist Center` can be translated to the that of the gripper by includding a link offset of 0.303 meters (see row 6 of the table).  
 
  also generate a generalized homogeneous transform between base_link and gripper_link using only end-effector(gripper) pose.
 
