@@ -33,12 +33,13 @@ Before the analysis, two checks were performed": static configuration and dynami
 
 ![alt text][image1]
 
-Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). The DH table resulted as follows, including both twist (\alpha) and joint (\theta) angles:  
+Keeping in mind these two factors, the Denavit-Hartenberg (DH) convention was used to identify the reference frames of each joint while using the parameters included in `kr210.urdf.xacro` to get the links' lengths (a's) and offsets (d's). As the base frame (at the origin) is of interest in determining the proper position of the gripper, the element was included in the table. The DH table resulted as follows, including both twist (**Alpha**) and joint (**Theta** or **q**) angles:  
 
-Alpha | A's | D's | Theta's
---- | --- | --- | ---
-1 | `highlight` | **bold** | 7.41
-2 | a | b | c
+Joint|Alpha | A | D | Theta
+--- | --- | --- | --- | ---
+0 | 0     | 0    | 0.75 | 0
+1 | -pi/2 | 0.35 | 0    | -pi/2
+2 | 0     | 1.25 | 0    | 0
 3 | *italic* | text | 403
 4 | 2 | 3 | abcd
 5 | 2 | 3 | abcd
