@@ -13,7 +13,7 @@
 
 [//]: # (Image References)
 [image1]: ./joint_axes.png
-[image2]: ./misc_images/misc2.png
+[image2]: ./figure_theta123.png
 [image3]: ./misc_images/misc3.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
@@ -75,7 +75,7 @@ Once the correction is calculated, and the gripper's pose assigned to the variab
 Where `EE_pos` is the vector containind current gripper's pose; `Rrpy` stands as the total rotation of the gripper around the axes X (for roll), Y (for pitch) and Z (for yaw), with the mentioned correction included; and 0.303 meters is the distance between the gripper and the `Wrist-Center`. 
 
 
-![alt text][image2]
+![image2]
 
 For the **inverse orientation** side, 
 
