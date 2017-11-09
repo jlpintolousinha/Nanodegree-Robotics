@@ -28,7 +28,7 @@ The proposed project was developed following these steps:
 5. Coding was included in `IK_debug.py` to check Forward Kinematics calculation. 
 6. `IK_server.py` was modified and positevely tested afterwards. 
 
-### Kinematic Analysis
+### Forward Kinematics
 Before the analysis, two checks were performed": static configuration and dynamic behavior. That is, observing the robot's model via `load_urdf.launch` in RViz allowed to better understand its composition of 6 joints plus 5 links and a gripper or end-effector, while running safe_spawner.sh under `Demo mode` helped to determine the robot's space of operation and limits. 
 
 ![alt text][image1]
@@ -47,11 +47,22 @@ Joint|Alpha | A | D | Theta
 
 To properly read the table, each row should be accounted as the relationship between the lower and higher index joint (i.e., row 0 translates the relationship between the base frame and the first joint). On the other hand, the disposition of the frames at joints 4, 5 and 6 allowed to define a single point as a `Wrist Center` that would ease the relationship between the base link and the gripper position. As a matter of fact, the reference frames of the `Wrist Center` can be translated to the that of the gripper by includding a link offset of 0.303 meters (see row 6 of the table).  
 
-Keeping these parameters, a generalized homogeneous transform `T` between base link and gripper could be constructed by concatenating translations and rotations from the origin all the way through to the gripper, hence establishing the Forward Kinematics analysis of the robot:
+Keeping these parameters, a generalized homogeneous transform `T` between base link and gripper could be constructed by concatenating translations and rotations from the origin all the way through to the gripper, hence establishing the Forward Kinematics analysis of the robot. That been said, knowing the general form of a homogeneous transformation as
 
+cos(theta_i)| -sin(theta_i)| 0 | ai_1
+--- | --- | --- | --- 
+sin(theta_i)\*cos(alphai_1) | cos(theta_i)\*cos(alphai_1) |	-sin(alphai_1) |    -sin(alphai_1)\*di
+sin(theta_i)\*sin(alphai_1) | cos(theta_i)\*sin(alphai_1) | cos(alphai_1) | 	cos(alphai_1)\*di
+0                           |						                	0|		     		 0|			        			1
 
+It is possible to substitute the values of the DH table and concatenate each transformation so that
 
-#### 3. Decouple Inverse Kinematics problem into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
+T0_G = T0_1 \* T1_2 \* T2_3 \* T3_4 \* T4_5 * T5_6 * T6_G
+
+With zero being the base link and G the gripper. 
+
+#### Inverse Kinematics 
+At this point, it becomes necessary to determine all individual joint angles. the problem dividdes into Inverse Position Kinematics and inverse Orientation Kinematics; doing so derive the equations to calculate all individual joint angles.
 
 And here's another image! 
 
