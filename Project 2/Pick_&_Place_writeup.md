@@ -102,9 +102,7 @@ As instructed, the `IK_server.py` file was filled with code for calculating Inve
 
 ![image3]  ![image4]
 
-2. The transition from the robot's initial position to the spawn's location, although smooth, may present rotations of 180° or 360° around joint 6's Z-axis before reaching the spawn. This could be the result of singularities (or changes of sign) encountered by atan2 at specific robot's positions (as a matter of fact, the test cases contained in `IK_debug.py` provided errors different than zero and higher than one at joint 6 even though the forward kinematic estimated errors were small). 
-
-Nonetheless, improvements could be included so that at such positions, in order to avoid unnecessary turnings of joint 6 around Z-axis, the latest valid value of atan2 is kept and used by the robot rather than the singularity itself, thus improving both performance and time to complete the task.
+2. The transition from the robot's initial position to the spawn's location, although smooth, may present rotations of 180° or 360° around joint 6's Z-axis before reaching the spawn. This could be the result of singularities (or changes of sign) encountered by atan2 at specific robot's positions (as a matter of fact, the test cases contained in `IK_debug.py` provided errors different than zero and higher than one at joint 6 even though the forward kinematic estimated errors were small)... Nonetheless, improvements could be included so that at such positions, in order to avoid unnecessary turnings of joint 6 around Z-axis, the latest valid value of atan2 is kept and used by the robot rather than the singularity itself, thus improving both performance and time to complete the task.
 
 3. The coding of Forward Kinematics' calculation was initially thought to consist of a matrix object per homogeneus transformation. Althpough usefull in terms of understanding the process, it proved to be very unoptimal. The best solution was the one provided by the walkthrough video, were a function to determine the transform was defined (see lines 46 to 51 of `IK_server.py`). 
 
@@ -112,6 +110,8 @@ Nonetheless, improvements could be included so that at such positions, in order 
 
 ### Final Thoughts
 
-This project was not an easy task. 
+This project was not an easy task. Much of the code was grabbed from the walkthrough solution provided in the course due to lack of understanding regarding the Inverse Kinematics process and its implementation. I would personally thank the Slack channel because of the insight it provided regarding the calculation of the joint angles and how the cosine law was used for such purpose. 
+
+I consider the lectures lack the contents necessary to complete this project in terms of the tools I could've used to better grip the assignment. However, I consider this as a lack of experience from my side and just another part of the learning process.  
 
 
