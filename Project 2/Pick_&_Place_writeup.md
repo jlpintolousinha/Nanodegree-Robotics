@@ -15,6 +15,7 @@
 [image1]: ./joint_axes.png
 [image2]: ./figure_theta123.png
 [image3]: ./misc_images/misc3.png
+[image4]: ./misc_images/misc4.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 
@@ -97,12 +98,20 @@ The accounted to make the following relations for such Euler Angles as
 ### Project Implementation
 As instructed, the `IK_server.py` file was filled with code for calculating Inverse Kinematics based on previously performed Kinematic Analysis. The next impressions could be gathered about the project and its results:
 
-1. Much of the code was 
+1. The project as it is, performs the expect actions without deviating too much from the initially planned trajectory. However, problems regarding the time it may take to complete the task of grabbing and dropping the spawn may arise. The image below portrays the predicted trajectories from the robot's initial position and that after grabbing the spawn. 
 
-Here I'll talk about the code, what techniques I used, what worked and why, where the implementation might fail and how I might improve it if I were going to pursue this project further.  
+![image3]  ![image4]
 
+2. The transition from the robot's initial position to the spawn's location, although smooth, may present rotations of 180° or 360° around joint 6's Z-axis before reaching the spawn. This could be the result of singularities (or changes of sign) encountered by atan2 at specific robot's positions (as a matter of fact, the test cases contained in `IK_debug.py` provided errors different than zero and higher than one at joint 6 even though the forward kinematic estimated errors were small). 
 
-And just for fun, another example image:
-![alt text][image3]
+Nonetheless, improvements could be included so that at such positions, in order to avoid unnecessary turnings of joint 6 around Z-axis, the latest valid value of atan2 is kept and used by the robot rather than the singularity itself, thus improving both performance and time to complete the task.
+
+3. The coding of Forward Kinematics' calculation was initially thought to consist of a matrix object per homogeneus transformation. Althpough usefull in terms of understanding the process, it proved to be very unoptimal. The best solution was the one provided by the walkthrough video, were a function to determine the transform was defined (see lines 46 to 51 of `IK_server.py`). 
+
+4. Much of the matrices that did not need to be included in the `for` loop for the inverse kinematics process were left outside of it for optimization objectives. In addition, placing such matrices within the loop would be resource consuming and contrary to what was expected from the robot. 
+
+### Final Thoughts
+
+This project was not an easy task. 
 
 
