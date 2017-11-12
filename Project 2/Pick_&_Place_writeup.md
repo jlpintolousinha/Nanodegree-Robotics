@@ -14,8 +14,10 @@
 [//]: # (Image References)
 [image1]: ./joint_axes.png
 [image2]: ./figure_theta123.png
-[image3]: ./misc_images/misc3.png
-[image4]: ./misc_images/misc4.png
+[image3]: ./image1.png
+[image4]: ./image2.png
+[image5]: ./image3.png
+[image6]: ./image4.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
 
@@ -102,11 +104,13 @@ As instructed, the `IK_server.py` file was filled with code for calculating Inve
 
 ![image3]  ![image4]
 
-2. The transition from the robot's initial position to the spawn's location, although smooth, may present rotations of 180° or 360° around joint 6's Z-axis before reaching the spawn. This could be the result of singularities (or changes of sign) encountered by atan2 at specific robot's positions (as a matter of fact, the test cases contained in `IK_debug.py` provided errors different than zero and higher than one at joint 6 even though the forward kinematic estimated errors were small)... Nonetheless, improvements could be included so that at such positions, in order to avoid unnecessary turnings of joint 6 around Z-axis, the latest valid value of atan2 is kept and used by the robot rather than the singularity itself, thus improving both performance and time to complete the task.
+2. The transition from the robot's initial position to the spawn's location, although smooth, may present rotations of 180° or 360° around joint 6's Z-axis before reaching the spawn (see imgaes below). This could be the result of singularities (or changes of sign) encountered by atan2 at specific robot's positions (as a matter of fact, the test cases contained in `IK_debug.py` provided errors different than zero and higher than one at joint 6 even though the forward kinematic estimated errors were small)... Nonetheless, improvements could be included so that at such positions, in order to avoid unnecessary turnings of joint 6 around Z-axis, the latest valid value of atan2 is kept and used by the robot rather than the singularity itself, thus improving both performance and time to complete the task.
 
-3. The coding of Forward Kinematics' calculation was initially thought to consist of a matrix object per homogeneus transformation. Althpough usefull in terms of understanding the process, it proved to be very unoptimal. The best solution was the one provided by the walkthrough video, were a function to determine the transform was defined (see lines 46 to 51 of `IK_server.py`). 
+![image5]  ![image6]
 
-4. Much of the matrices that did not need to be included in the `for` loop for the inverse kinematics process were left outside of it for optimization objectives. In addition, placing such matrices within the loop would be resource consuming and contrary to what was expected from the robot. 
+3. The coding of Forward Kinematics' calculation was initially thought to consist of one matrix object per homogeneus transform. Althpough usefull in terms of understanding the process, it proved to be very unoptimal. The best solution was the one provided by the walkthrough video, were a function to determine the transform was defined (see lines 46 to 51 of `IK_server.py`). 
+
+4. Much of the matrices that did not need to be included in the `for` loop for the inverse kinematics process were left outside of it for optimization objectives. Moreover, placing such matrices within the loop would be resource consuming and contrary to what was expected from the robot. 
 
 ### Final Thoughts
 
