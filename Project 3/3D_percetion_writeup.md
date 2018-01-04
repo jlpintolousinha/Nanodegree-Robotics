@@ -17,7 +17,7 @@
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
 
-Summary
+### Summary
 
 The proposed project was developed by:
 1. The implementation of data filtering and RANSAC plane fitting.
