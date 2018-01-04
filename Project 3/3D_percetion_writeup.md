@@ -2,15 +2,14 @@
 
 **The goals / steps to complete this project were the following:**  
 
-
-1. Exercise 1 steps: Implementation of data filtering and RANSAC plane fitting.
-2. Exercise 2 steps: Include clustering technique for segmentation.
-3. Exercise 3 steps: Objects' features extracted and SVM trained. 
-4. Implement object recognition via the exercises. 
+1. Get familiar with the concept of Point Cloud Library.  
+2. Implement data filtering techniques for image recognition from a RGB camera. 
+3. Understand Random Sample Consensus (RANSAC) plane fitting for identifying the points of an identified model.
+4. Perform clustering segmentation in the generated Point Cloud Library.
+5. Extract object's features extracted and train a Support Vector Machine (SVM). 
+6. Recognixe objects detected by the RGB camera.
 
 [//]: # (Image References)
-[image1]: ./joint_axes.png
-[image2]: ./figure_theta123.png
 [image3]: ./image1.png
 [image4]: ./image2.png
 [image5]: ./image3.png
@@ -20,15 +19,14 @@
 
 Summary
 
-The proposed project was developed following these steps:
-1. All required software and packages were installed in Linux VM. 
-2. ROS packages were tested and ran under Linux enviroment.
-3. A ROS enviroment was setup for Gazebo, RViz and Moveit! to properly execute. 
-4. A kinematics analysis was performed for the Kuka Arm KR210; `kr210.urdf.xacro` file was also studied to determine the relationship between each of the arm's joints.
-5. Coding was included in `IK_debug.py` to check Forward Kinematics calculation. 
-6. `IK_server.py` was modified and positevely tested afterwards. 
+The proposed project was developed by:
+1. The implementation of data filtering and RANSAC plane fitting.
+2. The clustering or segmentation of detected objects.
+3. The extraction of features from the object and subsequent SVM trained. 
+4. The object's recognition.  
 
-### Forward Kinematics
+### Data filtering / RANSAC plane fitting
+
 Before the analysis, two checks were performed": static configuration and dynamic behavior. That is, observing the robot's model via `load_urdf.launch` in RViz (see image below) allowed to better understand its composition of 6 joints plus 5 links and a gripper or end-effector, while running safe_spawner.sh under `Demo mode` helped to determine the robot's space of operation and limits. I
 
 ![image1]
