@@ -22,16 +22,14 @@ Summary
 The proposed project was developed by:
 1. The implementation of data filtering and RANSAC plane fitting.
 2. The clustering or segmentation of detected objects.
-3. The extraction of features from the object and subsequent SVM trained. 
-4. The object's recognition.  
+3. The extraction of features from the object and training of SVM. 
+4. The object's recognition via project implementation.  
 
 #### Data filtering / RANSAC plane fitting
 
-#### Clustering or Segmentation
+#### Clustering
 
 #### Object Features's Extraction
-
-#### Object's Recognition
 
 ### Project Implementation
 As instructed, the `IK_server.py` file was filled with code for calculating Inverse Kinematics based on previously performed Kinematic Analysis. The next impressions could be gathered about the project and its results:
