@@ -24,10 +24,13 @@ if __name__ == '__main__':
     rospy.init_node('capture_node')
 
     models = [\
-              'biscuits',
-              'soap2',
+              'sticky_notes',
               'book',
-              'soap'
+              'snacks',
+              'biscuits',
+              'eraser',
+              'soap2',
+              'soap',
              'glue']
 
     # Disable gravity and delete the ground plane
@@ -36,12 +39,13 @@ if __name__ == '__main__':
 
     for model_name in models:
         spawn_model(model_name)
+        print(model_name)
 
         for i in range(10):
-            # make five attempts to get a valid a point cloud then give up
+            # make n attempts to get a valid a point cloud then give up
             sample_was_good = False
             try_count = 0
-            while not sample_was_good and try_count < 10:
+            while not sample_was_good and try_count < 5:
                 sample_cloud = capture_sample()
                 sample_cloud_arr = ros_to_pcl(sample_cloud).to_array()
 

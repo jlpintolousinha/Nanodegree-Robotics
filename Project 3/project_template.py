@@ -79,7 +79,7 @@ def pcl_callback(pcl_msg):
     # Filter noisy data to get rid of the outliers
     outlier_filter = cloud_filtered.make_statistical_outlier_filter()
     # Set the number of neighboring points to analyze for any given point
-    outlier_filter.set_mean_k(50)
+    outlier_filter.set_mean_k(100)
     # Set threshold scale factor
     x = 1.0
     # Any point with a mean distance larger than global (mean distance+x*std_dev) will be considered outlier
@@ -110,9 +110,9 @@ def pcl_callback(pcl_msg):
     # as well as minimum and maximum cluster size (in points)
     # NOTE: These are poor choices of clustering parameters
     # Your task is to experiment and find values that work for segmenting objects.
-    ec.set_ClusterTolerance(0.01)
-    ec.set_MinClusterSize(10)
-    ec.set_MaxClusterSize(250)
+    ec.set_ClusterTolerance(0.1)
+    ec.set_MinClusterSize(1)
+    ec.set_MaxClusterSize(300)
     # Search the k-d tree for clusters
     ec.set_SearchMethod(tree)
     # Extract indices for each of the discovered clusters
@@ -150,7 +150,7 @@ def pcl_callback(pcl_msg):
 
     # Classify the clusters! (loop through each detected cluster one at a time)
     detected_objects_labels = []
-    detected_objects = []
+    detected_objects = []           #object point clouds
 
     for index, pts_list in enumerate(cluster_indices):
         # Grab the points for the cluster from the extracted outliers (cloud_objects)
@@ -177,6 +177,7 @@ def pcl_callback(pcl_msg):
         object_markers_pub.publish(make_label(label,label_pos, index))
 
         # Add the detected object to the list of detected objects.
+        #For each item in the list, you'll need to compare the label with the pick list and provide the centroid
         do = DetectedObject()
         do.label = label
         do.cloud = ros_cluster_cloud
@@ -212,8 +213,8 @@ def pr2_mover(object_list):
     place_pose = Pose()
     
     dict_list = []
-    test_scene_num.data = 2
-    yaml_filename = 'output_2.yaml'
+    test_scene_num.data = 3
+    yaml_filename = 'output_3.yaml'
 
     # TODO: Get/Read parameters
     object_list_param = rospy.get_param('/object_list')
@@ -282,16 +283,10 @@ if __name__ == '__main__':
     #Anytime a message arrives, the message data (a point cloud!) will be passed to the pcl_callback() function for processing
     pcl_sub = rospy.Subscriber("/pr2/world/points", pc2.PointCloud2, pcl_callback, queue_size=1)
 
-    # TODO: Create Publishers. Here you're creating two new publishers to publish the point cloud data for the table and the objects on the table.
+    # Create Publishers. Here you're creating two new publishers to publish the point cloud data for the table and the objects on the table.
     pcl_objects_pub = rospy.Publisher("/object_list", PointCloud2, queue_size=1)
     pcl_table_pub = rospy.Publisher("/pcl_table", PointCloud2, queue_size=1)
     pcl_cluster_pub = rospy.Publisher("/pcl_cluster", PointCloud2, queue_size=1)
-
-    # Create Publishers
-    # TODO: here you need to create two publishers
-    # Call them object_markers_pub and detected_objects_pub
-    # Have them publish to "/object_markers" and "/detected_objects" with 
-    # Message Types "Marker" and "DetectedObjectsArray" , respectively
     object_markers_pub = rospy.Publisher("/object_markers", Marker, queue_size=1)
     detected_objects_pub = rospy.Publisher("/detected_objects", DetectedObjectsArray, queue_size=1)
     
