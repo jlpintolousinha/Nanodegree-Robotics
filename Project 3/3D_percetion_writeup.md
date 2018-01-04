@@ -26,13 +26,21 @@ The proposed project was developed by:
 4. The object's recognition via project implementation.  
 
 #### Data filtering / RANSAC plane fitting
+This section was part of Exercise 1. The `pcl_callback()` function had to include instructions to properly filter out the data coming from the RGB camera. Threen different techniques were used in this part before the PCL could be clustered:
+1. Voxel Grid Downsampling to reduce the incoming amount of data. 
+2. Passthrough filter to separate the table from the detectable objects. 
+3. Noise filtering to eliminate outlier points (e.g., not belonging to any object)
+
+On the other hand, the RANSAC technique was also used and it allowed to narrow down the recorded points by determining whether they belonged to a specific model or shape. This way, it was possible to separate the objects from the table itself by defining a plane as segmentation shape (line 91 of `project_template.py`) and whether any points were within a threshold distance. 
 
 #### Clustering
+This section was part of Exercise 2. 
 
 #### Object Features's Extraction
+This section was part of Exercise 3. 
 
 ### Project Implementation
-As instructed, the `IK_server.py` file was filled with code for calculating Inverse Kinematics based on previously performed Kinematic Analysis. The next impressions could be gathered about the project and its results:
+As instructed,  .The next impressions could be gathered about the project and its results:
 
 1. The project as it is, performs the expect actions without deviating too much from the initially planned trajectory. However, problems regarding the time it may take to complete the task of grabbing and dropping the spawn may arise. The image below portrays the predicted trajectories from the robot's initial position and that after grabbing the spawn. 
 
