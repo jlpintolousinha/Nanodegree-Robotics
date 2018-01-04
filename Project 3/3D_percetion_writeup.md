@@ -2,7 +2,7 @@
 
 **The goals / steps to complete this project were the following:**  
 
-1. Get familiar with the concept of Point Cloud Library.  
+1. Get familiar with the concept of Point Cloud Library (PCL).  
 2. Implement data filtering techniques for image recognition from a RGB camera. 
 3. Understand Random Sample Consensus (RANSAC) plane fitting for identifying the points of an identified model.
 4. Perform clustering segmentation in the generated Point Cloud Library.
@@ -25,6 +25,8 @@ The proposed project was developed by:
 3. The extraction of features from the object and training of SVM. 
 4. The object's recognition via project implementation.  
 
+Keep in mind that most of the techniques herein described were applied to data coming out of a RGB camera. Such data had to be trasmitted via ROS messages over specified topics and converted to PCL (and XYZ positions), and then back into ROS messages for its transmission in RViz. In general, the creation of ROS publishers and further instructions is implicit all over the project. 
+
 #### Data filtering / RANSAC plane fitting
 This section was part of Exercise 1. The `pcl_callback()` function had to include instructions to properly filter out the data coming from the RGB camera. Threen different techniques were used in this part before the PCL could be clustered:
 1. Voxel Grid Downsampling to reduce the incoming amount of data. 
@@ -39,7 +41,7 @@ This section was part of Exercise 2. After the filtering, it was necessary to cr
 In our case, a 'k-d tree' was used as a data structure to organize a number of points in a k-dimensions space. Such struture allows to determine the set of point neighbors to a specific location (or radius). The Eucliden-clustering technique follows such this principle and it was used in `project_template.py` to reduce the amount of processing time of the streamed point cloud (lines 105 to 117). A color was assigned to each point cloud afterwards to differentiate the detected objects (line 121 to 134). 
 
 #### Object Features's Extraction
-This section was part of Exercise 3. 
+This section was part of Exercise 3. Once all of the objects were extracted and clustered, 
 
 ### Project Implementation
 As instructed,  .The next impressions could be gathered about the project and its results:
