@@ -34,7 +34,9 @@ This section was part of Exercise 1. The `pcl_callback()` function had to includ
 On the other hand, the RANSAC technique was also used and it allowed to narrow down the recorded points by determining whether they belonged to a specific model or shape. This way, it was possible to separate the objects from the table itself by defining a plane as segmentation shape (line 91 of `project_template.py`) and whether any points were within a threshold distance. 
 
 #### Clustering
-This section was part of Exercise 2. 
+This section was part of Exercise 2. After the filtering, it was necessary to create a point cloud for any different object present on the table. The way to do so was by defining clusters of data (or points) over the XYZ space, for which different methods exists in the literature (K-means clustering, DBSCAN algorithm, etc). 
+
+In our case, a 'k-d tree' was used as a data structure to organize a number of points in a k-dimensions space. Such struture allows to determine the set of point neighbors to a specific location (or radius). The Eucliden-clustering technique follows such this principle and it was used in `project_template.py` to reduce the amount of processing time of the streamed point cloud (lines 105 to 117). A color was assigned to each point cloud afterwards to differentiate the detected objects (line 121 to 134). 
 
 #### Object Features's Extraction
 This section was part of Exercise 3. 
