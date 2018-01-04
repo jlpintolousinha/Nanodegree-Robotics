@@ -41,7 +41,11 @@ This section was part of Exercise 2. After the filtering, it was necessary to cr
 In our case, a 'k-d tree' was used as a data structure to organize a number of points in a k-dimensions space. Such struture allows to determine the set of point neighbors to a specific location (or radius). The Eucliden-clustering technique follows such this principle and it was used in `project_template.py` to reduce the amount of processing time of the streamed point cloud (lines 105 to 117). A color was assigned to each point cloud afterwards to differentiate the detected objects (line 121 to 134). 
 
 #### Object Features's Extraction
-This section was part of Exercise 3. Once all of the objects were extracted and clustered, instructions to create recognizable objects from the generated point clouds were included in the `pcl_callback()` function (see `project_template.py`, lines 147 to 180). 
+This section was part of Exercise 3. Once all of the objects were extracted and clustered, instructions to create recognizable objects from the generated point clouds were included in the `pcl_callback()` function (see `project_template.py`, lines 147 to 180).  The funtions `compute_color_histograms()` and `get_nomarls()` stand out as a way to get the feature vector necessary to get the Support Vector Machine algorithm implemented (lines 166 to 168 in `project_template.py`). 
+
+In a nutshell, the algorithm allows to characterize the parameter space (PCL) of the detected objects into discrete classes by usign a 'trained' feature vector and label (e.g., the SVM is trained to recognize whether an image contains some specific "based on an input feature vector composed of color histograms" (slide 12, Lesson 19:Object Recognition)). That been said, once the training is applied to the whole parameter space, it is possible to characterize new objects for which only features exists and afterwards assign it to a specific class. After this point, if the SVM predictions are good, such training can be used for the object recognition phase.
+
+The latest paragraph accounts for a series of functions distributed among the files `features.py`, `capture_features.py` and `train_svm.py`. Take into account however that the mentioned SVM training set maybe not be accurate if the characteristics from which such feature vector was extracted are not enough. In order to improve such model, more and better features could to be extracted for instance. 
 
 ### Project Implementation
 As instructed,  .The next impressions could be gathered about the project and its results:
