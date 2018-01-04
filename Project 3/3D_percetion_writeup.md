@@ -11,9 +11,6 @@
 
 [//]: # (Image References)
 [image3]: ./image1.png
-[image4]: ./image2.png
-[image5]: ./image3.png
-[image6]: ./image4.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
 
@@ -45,17 +42,21 @@ This section was part of Exercise 3. Once all of the objects were extracted and 
 
 In a nutshell, the algorithm allows to characterize the parameter space (PCL) of the detected objects into discrete classes by usign a 'trained' feature vector and label (e.g., the SVM is trained to recognize whether an image contains some specific "based on an input feature vector composed of color histograms" (slide 12, Lesson 19:Object Recognition)). That been said, once the training is applied to the whole parameter space, it is possible to characterize new objects for which only features exists and afterwards assign it to a specific class. After this point, if the SVM predictions are good, such training can be used for the object recognition phase.
 
-The latest paragraph accounts for a series of functions distributed among the files `features.py`, `capture_features.py` and `train_svm.py`. Take into account however that the mentioned SVM training set maybe not be accurate if the characteristics from which such feature vector was extracted are not enough. In order to improve such model, more and better features could to be extracted for instance. 
+The latest paragraph accounts for a series of functions distributed among the files `features.py`, `capture_features.py` and `train_svm.py`. Take into account however that the mentioned SVM training set maybe not be accurate if the characteristics from which such feature vector was extracted are not enough. In order to improve such model, more and better features could to be extracted for instance. Image below provides an example of the resulting confusion matrix for a number of features N=10 under the `test1.world` configuration. The same parameters were kept for both `test2.world` and `test3.world`. 
+
+![image3]
 
 ### Project Implementation
-The next impressions could be gathered about the project and its results:
+The next impressions can be gathered from the project's implementation:
+1. There's a high risk of overfitting the model if number of features N > 50. This comes out after several attempts were made for N (10, 30, 50, 100, 250). As the number increased, the reported precision while runnning `train_svm.py` increased as well (even 96% reported), although no improvement was observed in the number of objects detected (as reported in RViz). Information in Slack helped in determinining under which conditions this situation would appear.  
 
+2. Changing the number of bins from 32 to 16 improved the overfitting situation as more items could be detected in RViz. However, a number below such limit reduced considerably the reported precision of the model while running `train_svm.py`.
 
-![image3]  ![image4]
+3. Setting `using_hsv=True` in `compute_color_histograms()` improved both the reported precision of the trained model and the number of detected objects in RViz. As a matter of fact, the setting had to be included in both `features.py` and `project_template.py` in order to get consistent results while running `pick_place_project.launch`. 
 
+4. Nevertheless, none of the results observed in Rviz (for any of the test worlds) provided a so called 'passing submission'. As a matter of fact, during `test1.world` case, several objects were detected at the begining (over 20) and decayed consequently to either of the 3 options (jumping from 'biscuits' to 'soap2' to 'soap'). As the number of objects increased per test case, so increased the number of objects detected, but it also decayed as simulation time went through. This behavior could be due to hardware limitations, but it is unknown until which point. 
 
-![image5]  ![image6]
-
+5. Can't personally say whether the data of either `output_1.yaml`, `output_2.yaml` or `output_3.yaml` is within acceptable limits. Any feedback regarding this issue would be of much help for future assignments. 
 
 ### Final Thoughts
 
