@@ -41,7 +41,7 @@ This section was part of Exercise 2. After the filtering, it was necessary to cr
 In our case, a 'k-d tree' was used as a data structure to organize a number of points in a k-dimensions space. Such struture allows to determine the set of point neighbors to a specific location (or radius). The Eucliden-clustering technique follows such this principle and it was used in `project_template.py` to reduce the amount of processing time of the streamed point cloud (lines 105 to 117). A color was assigned to each point cloud afterwards to differentiate the detected objects (line 121 to 134). 
 
 #### Object Features's Extraction
-This section was part of Exercise 3. Once all of the objects were extracted and clustered, 
+This section was part of Exercise 3. Once all of the objects were extracted and clustered, instructions to create recognizable objects from the generated point clouds were included in the `pcl_callback()` function (see `project_template.py`, lines 147 to 180). 
 
 ### Project Implementation
 As instructed,  .The next impressions could be gathered about the project and its results:
