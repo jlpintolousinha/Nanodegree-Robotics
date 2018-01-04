@@ -1,15 +1,12 @@
-## Project: Kinematics Pick & Place
+## Project: 3D Perception
 
 **The goals / steps to complete this project were the following:**  
 
 
-1. Set up a ROS Workspace.
-2. Download or clone the project repository contained in GitHub
-3. Experiment with the forward_kinematics environment and familiarize with the Gazebo and Rviz environment.
-4. Launch safe_spawner.sh in demo mode and observe KR210's behavior
-5. Perform Kinematic Analysis for the  KR210, using the methodology described in the lectures. 
-6. Fill in the `IK_server.py` with code to perform Inverse Kinematics analysis. 
-
+1. Exercise 1 steps: Implementation of data filtering and RANSAC plane fitting.
+2. Exercise 2 steps: Include clustering technique for segmentation.
+3. Exercise 3 steps: Objects' features extracted and SVM trained. 
+4. Implement object recognition via the exercises. 
 
 [//]: # (Image References)
 [image1]: ./joint_axes.png
@@ -19,7 +16,7 @@
 [image5]: ./image3.png
 [image6]: ./image4.png
 
-## [Rubric](https://review.udacity.com/#!/rubrics/972/view) Points
+## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
 
 Summary
 
