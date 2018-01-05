@@ -65,7 +65,7 @@ The next impressions can be gathered from the project's implementation:
 
 ![image5]
 
-Lastly, for `test3.world` scenario, 'soap2', 'biscuits' and 'book' were detected. 
+Lastly, for `test3.world` scenario, 'snacks', 'book' and 'biscuits' were detected. 
 
 ![image6]
 
