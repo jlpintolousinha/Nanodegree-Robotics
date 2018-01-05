@@ -30,7 +30,7 @@ if __name__ == '__main__':
               'biscuits',
               'eraser',
               'soap2',
-              'soap',
+             'soap',
              'glue']
 
     # Disable gravity and delete the ground plane
@@ -41,7 +41,7 @@ if __name__ == '__main__':
         spawn_model(model_name)
         print(model_name)
 
-        for i in range(10):
+        for i in range(100):
             # make n attempts to get a valid a point cloud then give up
             sample_was_good = False
             try_count = 0
