@@ -13,6 +13,7 @@
 [image3]: ./image1.png
 [image4]: ./image2.png
 [image5]: ./image3.png
+[image6]: ./image4.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
 
@@ -63,6 +64,10 @@ The next impressions can be gathered from the project's implementation:
  As the number of objects increased per test case, so increased the number of objects detected: for `test2.world` scenario, 'soap2', 'biscuits' and 'book' were detected. This behavior could be due to hardware limitations, but it is unknown until which point. 
 
 ![image5]
+
+Lastly, for `test3.world` scenario, 'soap2', 'biscuits' and 'book' were detected. 
+
+![image6]
 
 5. Can't personally say whether the data of either `output_1.yaml`, `output_2.yaml` or `output_3.yaml` is within acceptable limits. Any feedback regarding this issue would be of much help for future assignments. 
 
