@@ -54,15 +54,17 @@ The next impressions can be gathered from the project's implementation:
 
 4. Nevertheless, none of the results observed in Rviz (for any of the test worlds) provided a so called 'passing submission'. As a matter of fact, during `test1.world` case, several objects were detected at the begining (over 20) and decayed to detect 2 out of 3 objects (in the image, 'biscuits' and 'soap2' were detected). This behavior could be due to hardware limitations, but it is unknown until which point. 
 
+`Images while following the target`
+
+![image3]
+
+`Images while at patrol without target` 
+
 ![image4]
 
- As the number of objects increased per test case, so increased the number of objects detected: for `test2.world` scenario, 'soap2', 'biscuits' and 'book' were detected. 
+`Images while at patrol with target`
 
 ![image5]
-
-Lastly, for `test3.world` scenario, 'snacks', 'book' and 'biscuits' were detected. 
-
-![image6]
 
 5. Can't personally say 
 
