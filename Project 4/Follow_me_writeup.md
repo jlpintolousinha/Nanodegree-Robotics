@@ -2,7 +2,7 @@
 
 **The goals / steps to complete this project were the following:**  
 
-1. Get familiar with the concept of Neural Networks and its advantages.
+1. Get familiar with the concept of Neural Networks and its uses on image processing.
 2. Learn the use of Deep Learning functions defined in TensorFlow library 
 3. Understand the idea behind Convolutional Neural Networks (CNN) and Fully Connected Networks (FCN). 
 4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
