@@ -64,12 +64,10 @@ Lastly, for `test3.world` scenario, 'snacks', 'book' and 'biscuits' were detecte
 
 ![image6]
 
-5. Can't personally say whether the data of either `output_1.yaml`, `output_2.yaml` or `output_3.yaml` is within acceptable limits. Any feedback regarding this issue would be of much help for future assignments. 
+5. Can't personally say 
 
 ### Final Thoughts
 
-I consider this project not to be easy, even though much of the code and its implementation was grabbed from the provided material in the lessons. On the other hand, information provided via the Slack channel helped in determining the errors that led to unexpected reported labels. 
-
-I also consider the lectures lacksome directions regarding the tools I could've used to better grip the assignment and debug any issue. However, I consider this as a lack of experience from my side and just another part of the learning process.  
+I consider this project to be manageable in the proposed time. Information provided via the Slack channel helped also in determining the errors that the code could have. In addition, the lectures provided good information regarding the CNN and FCN methods for image processing making this experience nicer than others. 
 
 
