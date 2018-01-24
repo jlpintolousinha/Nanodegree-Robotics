@@ -20,10 +20,10 @@
 ### Summary
 
 The proposed project was developed by:
-1. The implementation of data filtering and RANSAC plane fitting.
-2. The clustering or segmentation of detected objects.
-3. The extraction of features from the object and training of SVM. 
-4. The object's recognition via project implementation.  
+1. The implementation of 
+2. The clustering 
+3. The extraction of 
+4. The hero's recognition via project implementation.  
 
 Keep in mind that most of the techniques herein described were applied 
 
