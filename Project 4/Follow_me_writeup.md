@@ -4,8 +4,8 @@
 
 1. Get familiar with the concept of Neural Networks and its advantages.
 2. Learn the use of Deep Learning functions defined in TensorFlow library 
-3. Understand the idea behind Convolutional Neural and Fully Connected networks. 
-4. Grasp scene understanding concept via Semantic Segmentation of pixels. 
+3. Understand the idea behind Convolutional Neural Networks (CNN) and Fully Connected Networks (FCN). 
+4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
 6. Manipulate the Follow Me simulator for the implementation of foresaid techniques. 
 
 [//]: # (Image References)
