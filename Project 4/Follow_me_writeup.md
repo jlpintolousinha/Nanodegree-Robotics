@@ -1,19 +1,19 @@
-## Project: 3D Perception
+## Project: Follow Me
 
 **The goals / steps to complete this project were the following:**  
 
-1. Get familiar with the concept of Point Cloud Library (PCL).  
-2. Implement data filtering techniques for image recognition from a RGB camera. 
-3. Understand Random Sample Consensus (RANSAC) plane fitting for identifying the points of an identified model.
-4. Perform clustering segmentation in the generated Point Cloud Library.
-5. Extract object's features extracted and train a Support Vector Machine (SVM). 
-6. Recognixe objects detected by the RGB camera.
+1. Get familiar with the concept of Neural Networks and its advantages.
+2. Learn the use of Deep Learning functions defined in TensorFlow library 
+3. Understand the idea behind Convolutional Neural and Fully Connected networks. 
+4. Grasp scene understanding concept via Semantic Segmentation of pixels. 
+6. Manipulate the Follow Me simulator for the implementation of foresaid techniques. 
 
 [//]: # (Image References)
-[image3]: ./image1.png
-[image4]: ./image2.png
-[image5]: ./image3.png
-[image6]: ./image4.png
+[image1]: ./image_batch_size_60_256.png
+[image2]: ./image_batch_size_70_160.png
+[image3]: ./image3_while following the target.png
+[image4]: ./image4_while at patrol without target.png
+[image5]: ./image5_while at patrol with target.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
 
@@ -25,7 +25,7 @@ The proposed project was developed by:
 3. The extraction of features from the object and training of SVM. 
 4. The object's recognition via project implementation.  
 
-Keep in mind that most of the techniques herein described were applied to data coming out of a RGB camera. Such data had to be trasmitted via ROS messages over specified topics and converted to PCL (and XYZ positions), and then back into ROS messages for its transmission in RViz. In general, the creation of ROS publishers and further instructions is implicit all over the project. 
+Keep in mind that most of the techniques herein described were applied 
 
 #### Data filtering / RANSAC plane fitting
 This section was part of Exercise 1. The `pcl_callback()` function had to include instructions to properly filter out the data coming from the RGB camera. Threen different techniques were used in this part before the PCL could be clustered:
