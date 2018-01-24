@@ -11,11 +11,11 @@
 [//]: # (Image References)
 [image1]: ./image_batch_size_60_256.png
 [image2]: ./image_batch_size_70_160.png
-[image3]: ./image3_while following the target.png
-[image4]: ./image4_while at patrol without target.png
-[image5]: ./image5_while at patrol with target.png
+[image3]: ./image3_while_following_the_target.png
+[image4]: ./image4_while_at_patrol_without_target.png
+[image5]: ./image5_while_at_patrol_with_target.png
 
-## [Rubric](https://review.udacity.com/#!/rubrics/1067/view) Points
+## [Rubric](https://review.udacity.com/#!/rubrics/1155/view) Points
 
 ### Summary
 
