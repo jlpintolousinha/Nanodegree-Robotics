@@ -20,37 +20,32 @@
 ### Summary
 
 The proposed project was developed by:
-1. The implementation of 
-2. The clustering 
-3. The extraction of 
-4. The hero's recognition via project implementation.  
+1. The implementation of separable convolution layers. 
+2. The definition of a network architecture, composed by encoders, upsampling and decoders. 
+3. The training of the model, assuming different values for the involved hyperparameters. 
+5. The predictions provided by the model, based on a validation dataset.
+5. The calculation of Intersection over Union metric (IOU) for model's performance evaluation. 
 
-Keep in mind that most of the techniques herein described were applied 
+Keep in mind that the steps herein described were applied to a provided dataset of training images. A different set of images could of course be constructed via the simulator's Spawn Crown function, but as it turned out, the simulator crashed in many occasions during the recording. For that reason, no new image datasets were created for train/validation purposes.  
 
-#### Data filtering / RANSAC plane fitting
-This section was part of Exercise 1. The `pcl_callback()` function had to include instructions to properly filter out the data coming from the RGB camera. Threen different techniques were used in this part before the PCL could be clustered:
-1. Voxel Grid Downsampling to reduce the incoming amount of data. 
-2. Passthrough filter to separate the table from the detectable objects. 
-3. Noise filtering to eliminate outlier points (e.g., not belonging to any object)
+#### Separable Convolution Layers
 
-On the other hand, the RANSAC technique was also used and it allowed to narrow down the recorded points by determining whether they belonged to a specific model or shape. This way, it was possible to separate the objects from the table itself by defining a plane as segmentation shape (line 91 of `project_template.py`) and whether any points were within a threshold distance. 
+This section
 
-#### Clustering
-This section was part of Exercise 2. After the filtering, it was necessary to create a point cloud for any different object present on the table. The way to do so was by defining clusters of data (or points) over the XYZ space, for which different methods exists in the literature (K-means clustering, DBSCAN algorithm, etc). 
+#### Network Architecture
 
-In our case, a 'k-d tree' was used as a data structure to organize a number of points in a k-dimensions space. Such struture allows to determine the set of point neighbors to a specific location (or radius). The Eucliden-clustering technique follows such this principle and it was used in `project_template.py` to reduce the amount of processing time of the streamed point cloud (lines 105 to 117). A color was assigned to each point cloud afterwards to differentiate the detected objects (line 121 to 134). 
+This section was
 
-#### Object Features's Extraction
-This section was part of Exercise 3. Once all of the objects were extracted and clustered, instructions to create recognizable objects from the generated point clouds were included in the `pcl_callback()` function (see `project_template.py`, lines 147 to 180).  The funtions `compute_color_histograms()` and `get_nomarls()` stand out as a way to get the feature vector necessary to get the Support Vector Machine algorithm implemented (lines 166 to 168 in `project_template.py`). 
+#### Model Training/Hyperparameters
 
-In a nutshell, the algorithm allows to characterize the parameter space (PCL) of the detected objects into discrete classes by usign a 'trained' feature vector and label (e.g., the SVM is trained to recognize whether an image contains some specific "based on an input feature vector composed of color histograms" (slide 12, Lesson 19:Object Recognition)). That been said, once the training is applied to the whole parameter space, it is possible to characterize new objects for which only features exists and afterwards assign it to a specific class. After this point, if the SVM predictions are good, such training can be used for the object recognition phase.
+This section 
 
-The latest paragraph accounts for a series of functions distributed among the files `features.py`, `capture_features.py` and `train_svm.py`. Take into account however that the mentioned SVM training set maybe not be accurate if the characteristics from which such feature vector was extracted are not enough. In order to improve such model, more and better features could to be extracted for instance. Image below provides an example of the resulting confusion matrix for a number of features N=100 under the `test3.world` configuration. The same parameters were kept for both `test1.world` and `test2.world`. 
+![image1]
+![image2]
 
-![image3]
-
-### Project Implementation
+### Predictions/IOU
 The next impressions can be gathered from the project's implementation:
+
 1. There's a high risk of overfitting the model if number of features N > 50. This comes out after several attempts were made for N (10, 30, 50, 100, 250). As the number increased, the reported precision while runnning `train_svm.py` increased as well (even 96% reported), although no improvement was observed in the number of objects detected (as reported in RViz). Information in Slack helped in determinining under which conditions this situation would appear.  
 
 2. Changing the number of bins from 32 to 16 improved the overfitting situation as more items could be detected in RViz. However, a number below such limit reduced considerably the reported precision of the model while running `train_svm.py`.
