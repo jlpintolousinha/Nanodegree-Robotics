@@ -33,11 +33,11 @@ In addition, many of the concepts herein treated were implemented as functions i
 
 #### Separable Convolution Layers
 
-From the objective of the project to detect a hero by means of a flying Quad that followed a spatial pattern, it is determined that it is necessary to search for a specific feature in an image (e.g. classification), find its location and follow it through its path as time runs. To do so, spatial information should be preserved along the different convolution layers besides information about the feature itself, making the framework of FCN the one to be properly applied. 
+From the objective of the project (to detect a hero by means of a flying Quad that followed a spatial pattern), it is determined that it is necessary to search for a specific feature in an image, find its location and follow it through its path as time runs. To do so, spatial information should be preserved along the different convolution layers besides that about the features itself, hence making the framework of FCN the one to be applied. 
 
 ![image6]
 
-As defined in the lessons, an example of FCN's architecture is seen in the image above (Udacity, 2018) and it is comprised by an encoder and a decoder. 
+As defined in the lessons, an example of FCN's architecture is seen in the image above (Udacity, 2018) and it is comprised by an encoder and a decoder. Keep in mind that the number of these would depend on how deep the neural network is required to go, an therefore a depthwise separable convolution, regularly known as `Separable Convolution`, was to be performed in this case.  
 
 Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the patches (or kernels), thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
 
@@ -45,7 +45,7 @@ In addition, batch normalization was implemented as well in line 6 of `model_tra
 
 #### Network Architecture
 
-This section was
+Why this solution? As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instantiated in `model_training.html`, but it did not reached a precision above 24%. That been said, it was necessary to go further deep the neural network in order to get the features properly detected. 
 
 #### Model Training/Hyperparameters
 
