@@ -14,6 +14,7 @@
 [image3]: ./image3_while_following_the_target.png
 [image4]: ./image4_while_at_patrol_without_target.png
 [image5]: ./image5_while_at_patrol_with_target.png
+[image6]: ./fcn.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1155/view) Points
 
@@ -32,7 +33,13 @@ In addition, many of the concepts herein treated were implemented as functions i
 
 #### Separable Convolution Layers
 
-As defined in the lessons, Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the kernels, thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
+From the objective of the project to detect a hero by means of a flying Quad that followed a spatial pattern, it is determined that it is necessary to search for a specific feature in an image (e.g. classification), find its location and follow it through its path as time runs. To do so, spatial information should be preserved along the different convolution layers besides information about the feature itself, making the framework of FCN the one to be properly applied. 
+
+![image6]
+
+As defined in the lessons, an example of FCN's architecture is seen in the image above (Udacity, 2018) and it is comprised by an encoder and a decoder. 
+
+Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the patches (or kernels), thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
 
 In addition, batch normalization was implemented as well in line 6 of `model_training.html` as an additional way to scale down the number of parameters to analize, further optimizing the network's training. As explained in the lessons, "the inputs to layers within the network are normalized" while using both mean and variance of the values in the current selected batch of data.
 
