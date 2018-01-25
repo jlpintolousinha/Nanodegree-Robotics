@@ -3,10 +3,10 @@
 **The goals / steps to complete this project were the following:**  
 
 1. Get familiar with the concept of Neural Networks and its uses on image processing.
-2. Learn the use of Deep Learning functions defined in TensorFlow library 
-3. Understand the idea behind Convolutional Neural Networks (CNN) and Fully Connected Networks (FCN). 
+2. Learn about Deep Learning functions defined in the TensorFlow® library .
+3. Understand the features of Fully Connected Networks (FCN) and its applications. 
 4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
-6. Manipulate the Follow Me simulator for the implementation of foresaid techniques. 
+6. Use the RoboND Quad Sim application as an insight on when to use the abovesaid techniques and what information can be extracted from them. 
 
 [//]: # (Image References)
 [image1]: ./image_batch_size_60_256.png
@@ -14,6 +14,7 @@
 [image3]: ./image3_while_following_the_target.png
 [image4]: ./image4_while_at_patrol_without_target.png
 [image5]: ./image5_while_at_patrol_with_target.png
+[image6]: ./fcn.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1155/view) Points
 
@@ -21,16 +22,26 @@
 
 The proposed project was developed by:
 1. The implementation of separable convolution layers. 
-2. The definition of a network architecture, composed by encoders, upsampling and decoders. 
+2. The definition of a network architecture.
 3. The training of the model, assuming different values for the involved hyperparameters. 
-5. The predictions provided by the model, based on a validation dataset.
+5. The predictions provided by the model as based on a validation dataset.
 5. The calculation of Intersection over Union metric (IOU) for model's performance evaluation. 
 
-Keep in mind that the steps herein described were applied to a provided dataset of training images. A different set of images could of course be constructed via the simulator's Spawn Crown function, but as it turned out, the simulator crashed in many occasions during the recording. For that reason, no new image datasets were created for train/validation purposes.  
+Keep in mind that these steps were performed through the use of an existing dataset of training/validation images. A different set of images could of course be constructed via the simulator's Spawn Crown function, but the simulator crashed in many occasions during the recording, and for that reason no new data was collected for train/validation purposes.  
+
+In addition, many of the concepts herein treated were implemented as functions in `model_training.html` that were used as necessary all along the way. 
 
 #### Separable Convolution Layers
 
-This section
+From the objective of the project to detect a hero by means of a flying Quad that followed a spatial pattern, it is determined that it is necessary to search for a specific feature in an image (e.g. classification), find its location and follow it through its path as time runs. To do so, spatial information should be preserved along the different convolution layers besides information about the feature itself, making the framework of FCN the one to be properly applied. 
+
+![image6]
+
+As defined in the lessons, an example of FCN's architecture is seen in the image above (Udacity, 2018) and it is comprised by an encoder and a decoder. 
+
+Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the patches (or kernels), thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
+
+In addition, batch normalization was implemented as well in line 6 of `model_training.html` as an additional way to scale down the number of parameters to analize, further optimizing the network's training. As explained in the lessons, "the inputs to layers within the network are normalized" while using both mean and variance of the values in the current selected batch of data.
 
 #### Network Architecture
 
