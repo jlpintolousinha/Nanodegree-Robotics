@@ -6,7 +6,7 @@
 2. Learn about Deep Learning functions defined in TensorFlow library 
 3. Understand the difference between Convolutional Neural Networks (CNN) and Fully Connected Networks (FCN). 
 4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
-6. Manipulate the Follow Me simulator for the implementation of foresaid techniques. 
+6. Use the 'Follow Me' simulator as an insight on when to use the abovesaid techniques and what information can be extracted from them. 
 
 [//]: # (Image References)
 [image1]: ./image_batch_size_60_256.png
