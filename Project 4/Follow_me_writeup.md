@@ -4,7 +4,7 @@
 
 1. Get familiar with the concept of Neural Networks and its uses on image processing.
 2. Learn about Deep Learning functions defined in TensorFlow library .
-3. Understand the advantages of Fully Connected Networks (FCN) and its applications. 
+3. Understand the features of Fully Connected Networks (FCN) and its applications. 
 4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
 6. Use the RoboND Quad Sim application as an insight on when to use the abovesaid techniques and what information can be extracted from them. 
 
