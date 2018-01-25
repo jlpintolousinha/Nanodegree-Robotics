@@ -33,7 +33,7 @@ In addition, many of the concepts herein treated were implemented as functions i
 
 #### Separable Convolution Layers
 
-From the objective of the project (to detect a hero by means of a flying Quad that followed a spatial pattern), it is determined that it is necessary to search for a specific feature in an image, find its location and follow it through its path as time runs. To do so, spatial information should be preserved along the different convolution layers besides that about the features itself, hence making the framework of FCN the one to be applied. 
+From the objective of the project (to locate a specific human target within an image), it is determined that it is necessary to search for a specific feature, save its location and follow it through its path as time runs. To do so, the framework of FCN is the one to be applied due to the need of spatial information be preserved along the different convolution layers, besides that of the feature itself. 
 
 ![image6]
 
