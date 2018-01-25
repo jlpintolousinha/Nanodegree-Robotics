@@ -3,7 +3,7 @@
 **The goals / steps to complete this project were the following:**  
 
 1. Get familiar with the concept of Neural Networks and its uses on image processing.
-2. Learn about Deep Learning functions defined in TensorFlow library .
+2. Learn about Deep Learning functions defined in the TensorFlow® library .
 3. Understand the features of Fully Connected Networks (FCN) and its applications. 
 4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
 6. Use the RoboND Quad Sim application as an insight on when to use the abovesaid techniques and what information can be extracted from them. 
@@ -21,12 +21,12 @@
 
 The proposed project was developed by:
 1. The implementation of separable convolution layers. 
-2. The definition of a network architecture, composed by encoders, upsampling and decoders. 
+2. The definition of a network architecture.
 3. The training of the model, assuming different values for the involved hyperparameters. 
-5. The predictions provided by the model, based on a validation dataset.
+5. The predictions provided by the model as based on a validation dataset.
 5. The calculation of Intersection over Union metric (IOU) for model's performance evaluation. 
 
-Keep in mind that the steps herein described were applied to a provided dataset of training images. A different set of images could of course be constructed via the simulator's Spawn Crown function, but as it turned out, the simulator crashed in many occasions during the recording. For that reason, no new image datasets were created for train/validation purposes.  
+Keep in mind that these steps were performed through the use of an existing dataset of training/validation images. A different set of images could of course be constructed via the simulator's Spawn Crown function, but the simulator crashed in many occasions during the recording, and for that reason no new datasets were created for train/validation purposes.  
 
 #### Separable Convolution Layers
 
