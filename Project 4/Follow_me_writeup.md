@@ -28,9 +28,13 @@ The proposed project was developed by:
 
 Keep in mind that these steps were performed through the use of an existing dataset of training/validation images. A different set of images could of course be constructed via the simulator's Spawn Crown function, but the simulator crashed in many occasions during the recording, and for that reason no new datasets were created for train/validation purposes.  
 
+In addition, many of the concepts herein treated were implemented as functions in `model_training.html` that were used as necessary all along the way. 
+
 #### Separable Convolution Layers
 
-This section
+As defined in the lessons, Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the kernels, thus improving the performance of the network and to some extent, any overfitting.
+
+In addition, batch normalization implemented as well in line 6 of `model_training.html`is a way to scale down the number of parameters to analize, therefore optimizing the network's training. As explained in the lessons, "instead of just normalizing the inputs to the network, the inputs to layers within the network are normalized" wile using both mean and variance of the values in the current selected batch.
 
 #### Network Architecture
 
