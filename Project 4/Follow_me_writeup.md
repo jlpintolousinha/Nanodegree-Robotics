@@ -34,7 +34,7 @@ In addition, many of the concepts herein treated were implemented as functions i
 
 As defined in the lessons, Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the kernels, thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
 
-In addition, batch normalization was implemented as well in line 6 of `model_training.html` as a way to scale down the number of parameters to analize, therefore optimizing the network's training. As explained in the lessons, "instead of just normalizing the inputs to the network, the inputs to layers within the network are normalized" while using both mean and variance of the values in the current selected batch.
+In addition, batch normalization was implemented as well in line 6 of `model_training.html` as an additional way to scale down the number of parameters to analize, further optimizing the network's training. As explained in the lessons, "the inputs to layers within the network are normalized" while using both mean and variance of the values in the current selected batch of data.
 
 #### Network Architecture
 
