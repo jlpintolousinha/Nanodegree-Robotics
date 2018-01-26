@@ -40,11 +40,13 @@ As defined in the lessons, the architecture of a FCN's (see image below. Udacity
 
 ![image6]
 
-The separable convolution technique consists of "a spatial convolution performed independently over each channel of an input, followed by a 1x1 convolution (or `pointwise convolution`), projecting the channels output by the depthwise convolution onto a new channel space" (Chollet, 2016). That is, it takes the output channels from the previous step and combines them into another output layer as it is implemented in line 6 of `model_training.html`. This was way, the number of parameters to be traversed by the patches (or kernels) is reduced thus improving the performance of the network and to some extent, any overfitting. The data provided with the project was used as an input to the functions defined in line 10 of `model_training.html`. 
+The separable convolution technique consists of "a spatial convolution performed independently over each channel of an input, followed by a 1x1 convolution (or `pointwise convolution`), projecting the channels output by the depthwise convolution onto a new channel space" (Chollet, 2016). That is, it takes the output channels from the previous step and combines them into another output layer. This way, the number of parameters to be traversed by the patches (or kernels) is reduced thus improving the performance of the network and to some extent, any overfitting. 
+
+
 
 #### Network Architecture
 
-The model architecture (see below) was the result of a number of trials with a different number or encoders/decoders.
+The model defined in line 10 of `model_training.html` was the result of a number of trials with a different number or encoders/decoders  (see scheme below).
 
 ![image7]
 
