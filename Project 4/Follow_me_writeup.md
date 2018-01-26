@@ -42,11 +42,11 @@ As defined in the lessons, the architecture of a FCN's (see image below. Udacity
 
 The separable convolution technique consists of "a spatial convolution performed independently over each channel of an input, followed by a 1x1 convolution (or `pointwise convolution`), projecting the channels output by the depthwise convolution onto a new channel space" (Chollet, 2016). That is, it takes the output channels from the previous step and combines them into another output layer. This way, the number of parameters to be traversed by the patches (or kernels) is reduced thus improving the performance of the network and to some extent, any overfitting. 
 
-
+The method is implemented in lines 6 and 7 of `model_training.html`, where different functions in Keras library has been used for instantiating different layers: separable, batch normalization and bilinear upsampling. As a side note, the last two layers where included to improve the performance of the layer (by normalizing the inputs) and to increase the input pixels to higher resolutions. 
 
 #### Network Architecture
 
-The model defined in line 10 of `model_training.html` was the result of a number of trials with a different number or encoders/decoders  (see scheme below).
+The encoders and decoders were defined in lines 8 and 9 of `model_training.html`, whereas the whole model was assembled in line 10 as has the scheme portrayed in the image below. This design was the result of a number of trials with a different number or encoders/decoders which provided global precision values from 20% to 25%
 
 ![image7]
 
