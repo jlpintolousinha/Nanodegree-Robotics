@@ -4,7 +4,7 @@
 
 1. Get familiar with the concept of Neural Networks and its uses on image processing.
 2. Learn about Deep Learning functions defined in the TensorFlow® library .
-3. Understand the features of Fully Connected Networks (FCN) and its applications. 
+3. Understand the features of Fully Convolutional Networks (FCN) and its applications. 
 4. Grasp the 'Scene Understanding' concept via Semantic Segmentation of pixels. 
 6. Use the RoboND Quad Sim application as an insight on when to use the abovesaid techniques and what information can be extracted from them. 
 
@@ -15,6 +15,7 @@
 [image4]: ./image4_while_at_patrol_without_target.png
 [image5]: ./image5_while_at_patrol_with_target.png
 [image6]: ./fcn.png
+[image7]: ./architecture.png
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/1155/view) Points
 
@@ -33,17 +34,21 @@ In addition, many of the concepts herein treated were implemented as functions i
 
 #### Separable Convolution Layers
 
-From the objective of the project (to locate a specific human target within an image), it is determined that it is necessary to search for a specific feature, save its location and follow it through its path as time runs. To do so, the framework of FCN is the one to be applied due to the need of spatial information be preserved along the different convolution layers, besides that of the feature itself. 
+The project's tasks were to search for a specific target, save its location and follow it through its path as time ran over. On way to do it, is by using fully connected layers. However, as they don't preserve spatial information through the network (as we need a 4D tensor), the replacement of them by convolutional layers presents an added advantage during image inference: it preserves spatial information along the different convolution layers.
 
 ![image6]
 
-As defined in the lessons, an example of FCN's architecture is seen in the image above (Udacity, 2018) and it is comprised by an encoder and a decoder. Keep in mind that the number of these would depend on how deep the neural network is required to go, an therefore a depthwise separable convolution, regularly known as `Separable Convolution`, was to be performed in this case.  
+As defined in the lessons, an example of a FCN's architecture is seen in the image above (Udacity, 2018) and it is comprised by an encoder and a decoder. Keep in mind that the number of these would depend on how deep the neural network is required to go, an therefore a depthwise separable convolution, regularly known as `Separable Convolution`, was to be performed in this case.  
 
 Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the patches (or kernels), thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
 
 In addition, batch normalization was implemented as well in line 6 of `model_training.html` as an additional way to scale down the number of parameters to analize, further optimizing the network's training. As explained in the lessons, "the inputs to layers within the network are normalized" while using both mean and variance of the values in the current selected batch of data.
 
 #### Network Architecture
+
+The model architecture (see below) was the result of a number of trials with a different number or encoders/decoders.
+
+![image7]
 
 Why this solution? As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instantiated in `model_training.html`, but it did not reached a precision above 24%. That been said, it was necessary to go further deep the neural network in order to get the features properly detected. 
 
