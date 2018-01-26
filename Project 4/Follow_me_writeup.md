@@ -36,13 +36,11 @@ In addition, many of the concepts herein treated were implemented as functions i
 
 The project's tasks were to search for a specific target, save its location and follow it through its path as time ran over. One way to do it was by using fully connected layers. However, as they don't preserve spatial information through the network (as we need a 4D tensor), the replacement of them by convolutional layers presents an advantage during image inference: it preserves spatial information along the different convolution layers.
 
-As defined in the lessons, the architecture of a FCN's (see image below. Udacity, 2018) it is comprised by one or more encoders and one or more decoders (the more elements, the more deep a network is). A depthwise separable convolution, or `Separable Convolution`, was to be performed in this cas  
+As defined in the lessons, the architecture of a FCN's (see image below. Udacity, 2018) it is comprised by one or more encoders and one or more decoders (the more the elements, the more deep a network is). A depthwise separable convolution, or `Separable Convolution`, was performed in this case properly address the abovementioned tasks without impacting the eficiciency of the network. 
 
 ![image6]
 
-Separable Convolution consists of "a convolution performed over each channel of an input layer, followed by a 1x1 convolution that takes the output channels from the previous step, then combining them into another output layer" (Udacity, 2018). The layers are implemented in line 6 of `model_training.html` and allow to reduce the number of parameters to be traversed by the patches (or kernels), thus improving the performance of the network and to some extent, any overfitting. The data already provided was used as an input to the functions in line 10 of `model_training.html` after instantiating the model object. 
-
-In addition, batch normalization was implemented as well in line 6 of `model_training.html` as an additional way to scale down the number of parameters to analize, further optimizing the network's training. As explained in the lessons, "the inputs to layers within the network are normalized" while using both mean and variance of the values in the current selected batch of data.
+The separable convolution technique consists of "a spatial convolution performed independently over each channel of an input, followed by a 1x1 convolution (or `pointwise convolution`), projecting the channels output by the depthwise convolution onto a new channel space" (Chollet, 2016). That is, it takes the output channels from the previous step and combines them into another output layer as it is implemented in line 6 of `model_training.html`. This was way, the number of parameters to be traversed by the patches (or kernels) is reduced thus improving the performance of the network and to some extent, any overfitting. The data provided with the project was used as an input to the functions defined in line 10 of `model_training.html`. 
 
 #### Network Architecture
 
