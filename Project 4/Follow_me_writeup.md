@@ -46,11 +46,11 @@ The method is implemented in lines 6 and 7 of `model_training.html`, where diffe
 
 #### Network Architecture
 
-The encoders and decoders were defined in lines 8 and 9 of `model_training.html`, whereas the whole model was assembled in line 10 as has the scheme portrayed in the image below. This design was the result of a number of trials with a different number or encoders/decoders which provided global precision values from 20% to 25%
+The encoders and decoders were defined in lines 8 and 9 of `model_training.html`, whereas the whole model was assembled in line 10 as has the scheme portrayed in the image below. This design was the result of a number of trials with a different number or encoders/decoders (as well as filter sizes) which provided global precision values from 20% to 25%
 
 ![image7]
 
-Why this solution? As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instantiated in `model_training.html`, but it did not reached a precision above 24%. That been said, it was necessary to go further deep the neural network in order to get the features properly detected. 
+As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instantiated in the notebook, but it did not reached a precision above 24% even after modifying the provided hyperparameters. In many cases, overfitting was observed after the model finished its validation phase, making it unadequate for the tasks in ind. It was necessary to go further deep the neural network, both by including more layers and increasing the size of the filters in order to get the pixels properly detected. 
 
 #### Model Training/Hyperparameters
 
