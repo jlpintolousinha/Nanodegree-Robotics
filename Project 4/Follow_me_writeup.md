@@ -56,17 +56,21 @@ As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instanti
 
 Different combinations of the provided hyperparameters were tested. At the beginning it was though that by using a high value of learning rate, it would possible to quickly reach an optimum. But that proved wrong giving the low global IOU calculated at the end of the process. As a matter of fact, assuming 0.1 as an initial value proved worng after the first 5 epochs where the model crearly started to overfit the data. 
 
-On the other hand, the number of epochs was progressively modified from 5 to 15 while keeping the rest of the hyperparameters constant, but this was proven wrong once more after the model showed signs of overfitting. Therefore it was not possible to get a precision above 25% with a 2-by-2 encoders-decoders combination. 
+On the other hand, the number of epochs was progressively modified from 5 to 15 while keeping the rest of the hyperparameters constant, but this was proven wrong once more after the model showed signs of overfitting. That been said, it was not possible to get a precision above 25% with a 2-by-2 encoders-decoders combination, which marked the time for a modified model of a 5-by-5 encoders-decoders to  further deepen the network.
 
 The number of steps-per-epoch was also modified from the default value of 50. The images contained in the address `data/train/images` accounted for a total of 4131, which is why assuming a batch size of 60, the steps-per-epoch hyperparameter was calculated as 69. The modification of either batch-size or steps-per-epoch numbers did have a proportional effect on the time required for training: the higher the numbers, the more time it was required for the model to train. From this point onwards, training started to be performed in AWS servers in order to speed-up the training and test another combination of parameters. 
 
+Finally, the combination shown in line 13 of `model_training.html` (including the 5-by-5 encoders-decoders combination) was the one that after many trials reached an improved global IOU of 35%, although well below the required passing threshold. Once more, the batch size was modified to 70 (plus the corresponding steps-per-epoch), but the model got terribluy overfitted after the 10th epoch (see image below). 
 
 ![image2]
 
-Changing the number of bins from 32 to 16 improved the overfitting situation as more items could be detected in RViz. However, a number below such limit reduced considerably the reported precision of the model while running `train_svm.py`.
+After the run, it was not clear whether modifying the hyperparameters would produce a better result. Much of the abovesaid numbers were modified without any positive change whatsoever, thus questioning if more images would be required to improve the image recognition; nonetheless, in line 11 of `model_training.html` the statement `For this project, the helper code in data_iterator.py will resize the copter images to 160x160x3 to speed up training` provided the best hint: although the training was speeded up, it limited the size of the images before training and hinderend the capacity of the model to adequately reach a good score, especially during detection of the target from far away
+
+Therefore, changing such number from 160 to 256 improved the overfitting situation as the target could be better detected in the different scenarios portrayed for evaluation. Accounting for 15 epochs, while keeping the other hyperparameters fixed, although 
+
 ![image1]
 
-4. Nevertheless, none of the results observed in Rviz (for any of the test worlds) provided a so called 'passing submission'. As a matter of fact, during `test1.world` case, several objects were detected at the begining (over 20) and decayed to detect 2 out of 3 objects (in the image, 'biscuits' and 'soap2' were detected). This behavior could be due to hardware limitations, but it is unknown until which point.
+ This behavior could be due to hardware limitations, but it is unknown until which point.
 
 ### Predictions/IOU
 The next impressions can be gathered from the project's implementation:
@@ -90,5 +94,5 @@ The next impressions can be gathered from the project's implementation:
 ### Final Thoughts
 
 I consider this project to be manageable in the proposed time. Information provided via the Slack channel helped also in determining the errors that the code could have. In addition, the lectures provided good information regarding the CNN and FCN methods for image processing making this experience nicer than others. 
-
+ 
 
