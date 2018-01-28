@@ -84,12 +84,11 @@ As stated in previous paragraphs, two different models were proposed. The predic
 
 ![image4]
 
-3. `Images while at patrol with target`: For the number of true positives: 173, number of false positives: 3, and number of false negatives: 139. This results are those of the 5-by-5 encoders-decoders arrangement and are much better than the one gathered for the other combination. In such case, the number of true positives and false negatives were recorded to be as much as 70 and 173 respectively, which largerly impacted the global IOU value calculated in line 26 of `model_training.html`. Given 
+3. `Images while at patrol with target`: For the number of true positives: 173, number of false positives: 3, and number of false negatives: 139. This results are those of the 5-by-5 encoders-decoders arrangement and are much better than the one gathered for the other combination. In such case, the number of true positives and false negatives were recorded to be as much as 70 and 173 respectively, which largerly impacted the global IOU value calculated in line 26 of `model_training.html`. 
 
 ![image5]
 
-1. There's a high risk of overfitting the model if number of features N > 50. This comes out after several attempts were made for N (10, 30, 50, 100, 250). As the number increased, the reported precision while runnning `train_svm.py` increased as well (even 96% reported), although no improvement was observed in the number of objects detected (as reported in RViz). Information in Slack helped in determinining under which conditions this situation would appear.  
-
+The last scenario proved to be the corner stone of this project as the model itself had to be capable of differentiating the true target from clutter around it. As a matter of fact, as neither hyperparameter helped in solving the precision problem (overfitting the model isn't of much help in these cases) the solution was to make the Quad images bigger so better features could be extracted from them. However, only experience will tell whether these actions are afordable in terms of space and commputing time.  
 
 ### Final Thoughts
 
