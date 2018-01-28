@@ -84,7 +84,7 @@ As stated in previous paragraphs, two different models were proposed. The predic
 
 ![image4]
 
-3. `Images while at patrol with target`: For the number of true positives: 173, number of false positives: 3, and number of false negatives: 139. This results are those of the 5-by-5 encoders-decoders arrangement and are much better than the one gathered for the other combination. In such case, the number of true positives and false negatives were recorded to be as much as 70 and 173 respectively, which largerly impacted the global IOU value calculated in line 26 of `model_training.html`. 
+3. `Images while at patrol with target`: For the number of true positives: 173, number of false positives: 3, and number of false negatives: 139. This results (shown below) are those of the 5-by-5 encoders-decoders arrangement and are much better than the one gathered for the other combination. In such case, the number of true positives and false negatives were recorded to be as much as 70 and 173 respectively, which largerly impacted the global IOU value calculated in line 26 of `model_training.html`. 
 
 ![image5]
 
