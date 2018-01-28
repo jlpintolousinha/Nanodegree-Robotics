@@ -75,15 +75,16 @@ It could also be that the model was unable to reach an precision value in the fi
 ### Predictions/IOU
 
 As stated in previous paragraphs, two different models were proposed. The predictions gathered in the next scenarios were:
-1. `Images while following the target`: For the number of true positives: 539, number false positives: 0, number false negatives: 0. These values were relatively the same in either 2-by-2 or 5-by-5 encoders-decoders arrangement. From the image below, it is seen that the model performed adequately when the target was detected. 
+
+1. `Images while following the target`: For the number of true positives: 539, number of false positives: 0 and number of false negatives: 0. These values were relatively the same in either 2-by-2 or 5-by-5 encoders-decoders arrangement. From the image below, it is seen that the model performed adequately when the target was detected. 
 
 ![image3]
 
-2. `Images while at patrol without target`: For the number of true positives: 0, number false positives: 136, number false negatives: 0. False positives were also relatively the same in either 2-by-2 or 5-by-5 encoders-decoders arrangement. From the image below, it is arguable that the model could have performed adequately while patroling without the target, 
+2. `Images while at patrol without target`: For the number of true positives: 0, number of false positives: 136, and number of false negatives: 0. False positives were also relatively the same in either 2-by-2 or 5-by-5 encoders-decoders arrangement. From the image below, it is arguable that the model could have performed adequately while patroling without the target.  
 
 ![image4]
 
-3. `Images while at patrol with target`
+3. `Images while at patrol with target`: For the number of true positives: 173, number of false positives: 3, and number of false negatives: 139. This results are those of the 5-by-5 encoders-decoders arrangement and are much better than the one gathered for the other combination. In such case, the number of true positives and false negatives were recorded to be as much as 70 and 173 respectively. This largerly impacted
 
 ![image5]
 
