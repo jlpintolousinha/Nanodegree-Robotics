@@ -70,21 +70,20 @@ Therefore, changing such number from 160 to 256 improved both global precision a
 
 ![image1]
 
-It could also be that the model was unable to reach an adequate global precision value in the first trials due to hardware limitations, but it is unknown if that's a plausible reason. 
+It could also be that the model was unable to reach an precision value in the first instances due to hardware limitations, but it is unknown if that's a plausible reason. 
 
 ### Predictions/IOU
-The next impressions can be gathered from the project's implementation:
- 
 
-`Images while following the target`
+As stated in previous paragraphs, two different models were proposed. The predictions gathered in the next scenarios were:
+1. `Images while following the target`: For the number of true positives: 539, number false positives: 0, number false negatives: 0. These values were relatively the same in either 2-by-2 or 5-by-5 encoders-decoders arrangement. From the image below, it is seen that the model performed adequately when the target was detected. 
 
 ![image3]
 
-`Images while at patrol without target` 
+2. `Images while at patrol without target`: For the number of true positives: 0, number false positives: 136, number false negatives: 0. False positives were also relatively the same in either 2-by-2 or 5-by-5 encoders-decoders arrangement. From the image below, it is arguable that the model could have performed adequately while patroling without the target, 
 
 ![image4]
 
-`Images while at patrol with target`
+3. `Images while at patrol with target`
 
 ![image5]
 
@@ -94,5 +93,9 @@ The next impressions can be gathered from the project's implementation:
 ### Final Thoughts
 
 I consider this project to be manageable in the proposed time. Information provided via the Slack channel helped also in determining the errors that the code could have. In addition, the lectures provided good information regarding the CNN and FCN methods for image processing making this experience nicer than others. 
+
+### Reference
+
+Chollet, F. (2016). Xception: Deep learning with depthwise separable convolutions. arXiv preprint.
  
 
