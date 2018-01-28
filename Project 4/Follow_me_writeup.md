@@ -54,12 +54,17 @@ As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instanti
 
 #### Model Training/Hyperparameters
 
-Different combinations of the provided hyperparameters were tested. 
+Different combinations of the provided hyperparameters were tested. At the beginning it was though that by using a high value of learning rate, it would possible to quickly reach an optimum. But that proved wrong giving the low global IOU calculated at the end of the process. As a matter of fact, assuming 0.1 as an initial value proved worng after the first 5 epochs where the model crearly started to overfit the data. 
 
-![image1]
+On the other hand, the number of epochs was progressively modified from 5 to 15 while keeping the rest of the hyperparameters constant, but this was proven wrong once more after the model showed signs of overfitting. Therefore it was not possible to get a precision above 25% with a 2-by-2 encoders-decoders combination. 
+
+The number of steps-per-epoch was also modified from the default value of 50. The images contained in the address `data/train/images` accounted for a total of 4131, which is why assuming a batch size of 60, the steps-per-epoch hyperparameter was calculated as 69. The modification of either batch-size or steps-per-epoch numbers did have a proportional effect on the time required for training: the higher the numbers, the more time it was required for the model to train. From this point onwards, training started to be performed in AWS servers in order to speed-up the training and test another combination of parameters. 
+
+
+![image2]
 
 Changing the number of bins from 32 to 16 improved the overfitting situation as more items could be detected in RViz. However, a number below such limit reduced considerably the reported precision of the model while running `train_svm.py`.
-![image2]
+![image1]
 
 4. Nevertheless, none of the results observed in Rviz (for any of the test worlds) provided a so called 'passing submission'. As a matter of fact, during `test1.world` case, several objects were detected at the begining (over 20) and decayed to detect 2 out of 3 objects (in the image, 'biscuits' and 'soap2' were detected). This behavior could be due to hardware limitations, but it is unknown until which point.
 
