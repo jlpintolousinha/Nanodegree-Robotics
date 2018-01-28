@@ -40,7 +40,7 @@ As defined in the lessons, the architecture of a FCN's (see image below. Udacity
 
 ![image6]
 
-The separable convolution technique consists of "a spatial convolution performed independently over each channel of an input, followed by a 1x1 convolution (or `pointwise convolution`), projecting the channels output by the depthwise convolution onto a new channel space" (Chollet, 2016). That is, it takes the output channels from the previous step and combines them into another output layer. This way, the number of parameters to be traversed by the patches (or kernels) is reduced thus improving the performance of the network and to some extent, any overfitting. 
+The separable convolution technique consists of "a spatial convolution performed independently over each channel of an input, followed by a 1x1 convolution (or `pointwise convolution`), projecting the channels output by the depthwise convolution onto a new channel space" (Chollet, 2016). In other words, it takes the output channels from the previous steps and combines them upstream into another output layer. This way, the number of parameters to be traversed by the patches (or kernels) is reduced hence improving the performance of the network and to some extent any overfitting. 
 
 The method is implemented in lines 6 and 7 of `model_training.html`, where different functions in Keras library has been used for instantiating different layers: separable, batch normalization and bilinear upsampling. As a side note, the last two layers where included to improve the performance of the layer (by normalizing the inputs) and to increase the input pixels to higher resolutions. 
 
@@ -48,15 +48,15 @@ The method is implemented in lines 6 and 7 of `model_training.html`, where diffe
 
 The encoders and decoders were defined in lines 8 and 9 of `model_training.html`, whereas the whole model was assembled in line 10 as has the scheme portrayed in the image below. This design was the result of a number of trials with a different number or encoders/decoders (as well as filter sizes) which provided global precision values from 20% to 25%
 
-![image7]
+As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instantiated in the notebook, but it did not reached a precision above 24% even after modifying the provided hyperparameters. In many cases, overfitting was observed after the model finished its validation phase, making it unadequate for the tasks in ind. It was necessary to go further deep the neural network: a 5-by-5 encoders-decoders scheme (see image below) was proposed to increase the depth of the filters and get the images' pixels properly detected and classified.
 
-As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instantiated in the notebook, but it did not reached a precision above 24% even after modifying the provided hyperparameters. In many cases, overfitting was observed after the model finished its validation phase, making it unadequate for the tasks in ind. It was necessary to go further deep the neural network, both by including more layers and increasing the size of the filters in order to get the pixels properly detected. 
+![image7]
 
 #### Model Training/Hyperparameters
 
 Different combinations of the provided hyperparameters were tested. At the beginning it was though that by using a high value of learning rate, it would possible to quickly reach an optimum. But that proved wrong giving the low global IOU calculated at the end of the process. As a matter of fact, assuming 0.1 as an initial value proved worng after the first 5 epochs where the model crearly started to overfit the data. 
 
-On the other hand, the number of epochs was progressively modified from 5 to 15 while keeping the rest of the hyperparameters constant, but this was proven wrong once more after the model showed signs of overfitting. That been said, it was not possible to get a precision above 25% with a 2-by-2 encoders-decoders combination, which marked the time for a modified model of a 5-by-5 encoders-decoders to  further deepen the network.
+On the other hand, the number of epochs was progressively modified from 5 to 15 while keeping the rest of the hyperparameters constant, but this was proven wrong once more after the model showed signs of overfitting. That been said, it was not possible to get a precision above 25% with a 2-by-2 encoders-decoders combination, which marked the time for the modified model of a 5-by-5 encoders-decoders to  further deepen the network.
 
 The number of steps-per-epoch was also modified from the default value of 50. The images contained in the address `data/train/images` accounted for a total of 4131, which is why assuming a batch size of 60, the steps-per-epoch hyperparameter was calculated as 69. The modification of either batch-size or steps-per-epoch numbers did have a proportional effect on the time required for training: the higher the numbers, the more time it was required for the model to train. From this point onwards, training started to be performed in AWS servers in order to speed-up the training and test another combination of parameters. 
 
