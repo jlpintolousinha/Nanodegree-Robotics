@@ -90,6 +90,14 @@ As stated in previous paragraphs, two different models were proposed. The predic
 
 The last scenario proved to be the corner stone of this project as the model itself had to be capable of differentiating the true target from clutter around it. As a matter of fact, as neither hyperparameter helped in solving the precision problem (overfitting the model isn't of much help in these cases) the solution was to make the Quad images bigger so better features could be extracted from them. However, only experience will tell whether these actions are afordable in terms of space and commputing time.  
 
+### Future Work
+
+To further improve the model herein portrayed, the next suggetions are considered:
+
+1. The Xception module proposed by Chollet (2016) could be implemented in case more clases and a larger databaset of images are to be processed. Not that the depthwise separable convolutions are unadequate, but rather in order to confirm which methodology outperfomrs the other. 
+2. Skip copnnections between the layers would also be nice to experiment with. Given the size of the proposed network and the time it takes for 15 epochs to run locally, a comparison between the whole FCN results and that if connections are skipped would be useful to understand how much data is really necessary to reach the 0.40 global precision, and how much it can be improved from this point. 
+3. 
+
 ### Final Thoughts
 
 I consider this project to be manageable in the proposed time. Information provided via the Slack channel helped also in determining the errors that the code could have. In addition, the lectures provided good information regarding the CNN and FCN methods for image processing making this experience nicer than others. 
