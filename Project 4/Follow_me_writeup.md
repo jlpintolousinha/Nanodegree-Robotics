@@ -52,6 +52,8 @@ As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instanti
 
 ![image7]
 
+Keep in mind two things: the encoders are trying to closely look at images' pixels, and the decoders try to reconstruct them element-wisely, as per encoder step. That's the reason of the skip connections. 
+
 #### Model Training/Hyperparameters
 
 Different combinations of the provided hyperparameters were tested. At the beginning it was though that by using a high value of learning rate, it would possible to quickly reach an optimum. But that proved wrong giving the low global IOU calculated at the end of the process. As a matter of fact, assuming 0.1 as an initial value proved worng after the first 5 epochs where the model crearly started to overfit the data. 
