@@ -95,7 +95,7 @@ The last scenario proved to be the corner stone of this project as the model its
 To further improve the model herein portrayed, the next suggetions are considered:
 
 1. The Xception module proposed by Chollet (2016) could be implemented in case more clases and a larger databaset of images are to be processed. Not that the depthwise separable convolutions are unadequate, but rather in order to confirm which methodology outperfomrs the other. 
-2. Skip copnnections between the layers would also be nice to experiment with. Given the size of the proposed network and the time it takes for 15 epochs to run locally, a comparison between the whole FCN results and that if connections are skipped would be useful to understand how much data is really necessary to reach the 0.40 global precision, and how much it can be improved from this point. 
+2. Skip copnnections were implemented in line 9 of `model_training.html`. However, increase the skip span between layers further spearated would also be nice to experiment with. Given the size of the proposed network and the time it takes for 15 epochs to run locally, a comparison between the whole FCN results and that if connections are skipped would be useful to understand how much data is really necessary to reach the 0.40 global precision, and how much it can be improved from this point. 
 3. 
 
 ### Final Thoughts
