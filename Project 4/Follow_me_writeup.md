@@ -52,7 +52,7 @@ As a matter of fact, an initial proposal of 2 encoders & 2 decoders was instanti
 
 ![image7]
 
-Keep in mind two things: the encoders are trying to closely look at images' pixels, and the decoders try to reconstruct them element-wisely, as per encoder step. That's the reason of the skip connections. 
+Finally, it is important to point out that as the encoders look closely at images' pixels by deepening the network and getting outputs  on an element-wise basis at the different layers, the decoders would in turn try to reconstruct them through skip connections to previous layers (the decoders would look for such missing pieces in order to get more information out of the image given the loss of spatial information). Nevertheless, it is unlikely for a limited number of decoders to perfectly reconstruct an encoded image. In such scenario, more (redundant) skip connections early in the network would have to be instantiated possibly hindering the efficiency of the network. 
 
 #### Model Training/Hyperparameters
 
