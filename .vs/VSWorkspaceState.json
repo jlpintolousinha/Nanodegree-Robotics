@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Second Term",
+    "\\Second Term\\Project 4",
     "\\Second Term\\Project 4\\gazebo"
   ],
-  "SelectedNode": "\\Second Term\\Project 4",
+  "SelectedNode": "\\Second Term\\Project 4\\gazebo\\ArmPlugin.cpp",
   "PreviewInSolutionExplorer": false
 }
