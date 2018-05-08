@@ -3,8 +3,9 @@
     "",
     "\\Second Term",
     "\\Second Term\\Project 4",
+    "\\Second Term\\Project 4\\c",
     "\\Second Term\\Project 4\\gazebo"
   ],
-  "SelectedNode": "\\Second Term\\Project 4\\gazebo\\ArmPlugin.cpp",
+  "SelectedNode": "\\Second Term\\Project 4\\gazebo\\gazebo-arm.world",
   "PreviewInSolutionExplorer": false
 }

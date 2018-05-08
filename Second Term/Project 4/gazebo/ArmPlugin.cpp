@@ -558,7 +558,7 @@ void ArmPlugin::OnUpdate(const common::UpdateInfo& updateInfo)
 			newReward     = true;
 			endEpisode    = true;
 		}
-		*/
+		
 		
 		//Issue an interim reward based on the distance to the object
 		
