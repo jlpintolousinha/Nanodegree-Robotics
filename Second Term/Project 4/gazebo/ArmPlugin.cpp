@@ -35,14 +35,14 @@
 /
 */
 
-#define INPUT_WIDTH   512
-#define INPUT_HEIGHT  512
-#define OPTIMIZER "None"
-#define LEARNING_RATE 0.0f
+#define INPUT_WIDTH   64
+#define INPUT_HEIGHT  64
+#define OPTIMIZER "RMSprop"
+#define LEARNING_RATE 0.1f
 #define REPLAY_MEMORY 10000
-#define BATCH_SIZE 8
+#define BATCH_SIZE 32
 #define USE_LSTM false
-#define LSTM_SIZE 32
+#define LSTM_SIZE 256
 
 /*
 / TODO - Define Reward Parameters
@@ -51,7 +51,7 @@
 
 #define REWARD_WIN  1.0f
 #define REWARD_LOSS -1.0f
-#define REWARD_FACTOR 5.0f
+#define REWARD_FACTOR 100.0f
 
 // Define Object Names
 #define WORLD_NAME "arm_world"
@@ -230,7 +230,7 @@ void ArmPlugin::onCameraMsg(ConstImageStampedPtr &_msg)
 // onCollisionMsg
 void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 {
-	//if(DEBUG){printf("collision callback (%u contacts)\n", contacts->contact_size());}
+	if(DEBUG){printf("collision callback (%u contacts)\n", contacts->contact_size());}
 
 	if( testAnimation )
 		return;
@@ -245,20 +245,38 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 
 	
 		//Check if there is collision between the arm and object, then issue learning reward
-		bool collisionCheck = strcmp(contacts->contact(i).collision2().c_str(), COLLISION_ITEM);
+		bool collisionCheckArm = strcmp(contacts->contact(i).collision2().c_str(), COLLISION_ITEM);			//tube::tube_link::tube_collision
+		bool collisionCheckGripper = strcmp(contacts->contact(i).collision1().c_str(), COLLISION_POINT);		//arm::gripperbase::gripper_link
+		/*std::cout<<"["<<contacts->contact(i).collision1().c_str()<< "]\n";
+		std::cout<<"["<<contacts->contact(i).collision2().c_str()<< "]\n";
+		std::cout<<"["<<collisionCheckArm<< "]\n";
+		std::cout<<"["<<collisionCheckGripper<< "]\n";*/
+
 		
-		if (collisionCheck)
+		if (collisionCheckArm)
 		{
 			rewardHistory = REWARD_WIN;
 			newReward  = true;
 			endEpisode = true;
 
+		
+			if (collisionCheckGripper)
+			{	
+	
+			rewardHistory = REWARD_WIN*2;
+			newReward  = true;
+			endEpisode = true;
+
 			return;
+			}
+		
 		}
-		else{
+		else 
+		{
 			rewardHistory = REWARD_LOSS;
 			newReward  = true;
 			endEpisode = true;
+
 		}
 		
 		
@@ -578,8 +596,11 @@ void ArmPlugin::OnUpdate(const common::UpdateInfo& updateInfo)
 
 				// compute the smoothed moving average of the delta of the distance to the goal
 				avgGoalDelta  = (avgGoalDelta * alpha) + (distDelta * (1.0f - alpha));
+				
+				if(distDelta < 0.25f){
 				rewardHistory = avgGoalDelta * REWARD_FACTOR;
-				newReward     = true;	
+				newReward     = true;
+				}	
 			}
 
 			lastGoalDistance = distGoal;
