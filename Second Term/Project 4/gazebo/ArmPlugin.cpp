@@ -133,11 +133,11 @@ void ArmPlugin::Load(physics::ModelPtr _parent, sdf::ElementPtr /*_sdf*/)
 
 	// Create our node for camera communication
 	cameraNode->Init();
-	cameraSub = node ->Subscribe("/gazebo/arm_world/camera/link/camera/image", ArmPlugin::onCameraMsg, this);
+	cameraSub = cameraNode ->Subscribe("/gazebo/arm_world/camera/link/camera/image", &ArmPlugin::onCameraMsg, this);
 	
 	// Create our node for collision detection
 	collisionNode->Init();
-	collisionSub = node ->Subscribe("/gazebo/arm_world/tube/tube_link/my_contact", ArmPlugin::onCollisionMsg, this);
+	collisionSub = collisionNode ->Subscribe("/gazebo/arm_world/tube/tube_link/my_contact", &ArmPlugin::onCollisionMsg, this);
 	
 	// Listen to the update event. This event is broadcast every simulation iteration.
 	this->updateConnection = event::Events::ConnectWorldUpdateBegin(boost::bind(&ArmPlugin::OnUpdate, this, _1));
@@ -224,7 +224,6 @@ void ArmPlugin::onCameraMsg(ConstImageStampedPtr &_msg)
 	newState = true;
 
 	if(DEBUG){printf("camera %i x %i  %i bpp  %i bytes\n", width, height, bpp, size);}
-
 }
 
 
@@ -255,6 +254,11 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 			endEpisode = true;
 
 			return;
+		}
+		else{
+			rewardHistory = REWARD_LOSS;
+			newReward  = true;
+			endEpisode = true;
 		}
 		
 		
@@ -294,8 +298,7 @@ bool ArmPlugin::updateAgent()
 	if(DEBUG){printf("ArmPlugin - agent selected action %i\n", action);}
 
 
-
-#if VELOCITY_CONTROL
+	#if VELOCITY_CONTROL
 	// if the action is even, increase the joint position by the delta parameter
 	// if the action is odd,  decrease the joint position by the delta parameter
 
@@ -324,7 +327,7 @@ bool ArmPlugin::updateAgent()
 			vel[n] = 0.0f;
 		}
 	}
-#else
+	#else
 	
 	float joint = ref[action/2] + actionJointDelta * ((action % 2 == 0) ? 1.0f : -1.0f);
 
@@ -337,7 +340,7 @@ bool ArmPlugin::updateAgent()
 
 	ref[action/2] = joint;
 
-#endif
+	#endif
 
 	return true;
 }
@@ -349,8 +352,7 @@ bool ArmPlugin::updateJoints()
 	if( testAnimation )	// test sequence
 	{
 		const float step = (JOINT_MAX - JOINT_MIN) * (float(1.0f) / float(ANIMATION_STEPS));
-
-#if 0
+	#if 0
 		// range of motion
 		if( animationStep < ANIMATION_STEPS )
 		{
@@ -374,7 +376,7 @@ bool ArmPlugin::updateJoints()
 
 		}
 
-#else
+	#else
 		// return to base position
 		for( uint32_t n=0; n < DOF; n++ )
 		{
@@ -392,7 +394,7 @@ bool ArmPlugin::updateJoints()
 		}
 
 		animationStep++;
-#endif
+	#endif
 
 		// reset and loop the animation
 		if( animationStep > ANIMATION_STEPS )
@@ -499,16 +501,16 @@ void ArmPlugin::OnUpdate(const common::UpdateInfo& updateInfo)
 	{
 		double angle(1);
 
-#if LOCKBASE
-		j2_controller->SetJointPosition(this->model->GetJoint("base"), 	0);
-		j2_controller->SetJointPosition(this->model->GetJoint("joint1"),  ref[0]);
-		j2_controller->SetJointPosition(this->model->GetJoint("joint2"),  ref[1]);
+	#if LOCKBASE
+			j2_controller->SetJointPosition(this->model->GetJoint("base"), 	0);
+			j2_controller->SetJointPosition(this->model->GetJoint("joint1"),  ref[0]);
+			j2_controller->SetJointPosition(this->model->GetJoint("joint2"),  ref[1]);
 
-#else
-		j2_controller->SetJointPosition(this->model->GetJoint("base"), 	 ref[0]); 
-		j2_controller->SetJointPosition(this->model->GetJoint("joint1"),  ref[1]);
-		j2_controller->SetJointPosition(this->model->GetJoint("joint2"),  ref[2]);
-#endif
+	#else
+			j2_controller->SetJointPosition(this->model->GetJoint("base"), 	 ref[0]); 
+			j2_controller->SetJointPosition(this->model->GetJoint("joint1"),  ref[1]);
+			j2_controller->SetJointPosition(this->model->GetJoint("joint2"),  ref[2]);
+	#endif
 	}
 
 	// episode timeout
@@ -547,7 +549,7 @@ void ArmPlugin::OnUpdate(const common::UpdateInfo& updateInfo)
 		
 		//Set appropriate Reward for robot hitting the ground.
 
-		bool checkGroundContact = (gripBBox.min.z <= groundContact) || (gripBBox.max.z <= groundContact)
+		bool checkGroundContact = (gripBBox.min.z <= groundContact) || (gripBBox.max.z <= groundContact);
 				
 		if(checkGroundContact)
 		{
@@ -616,6 +618,5 @@ void ArmPlugin::OnUpdate(const common::UpdateInfo& updateInfo)
 		}
 	}
 }
-
 }
 
