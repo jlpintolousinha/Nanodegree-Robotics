@@ -245,12 +245,12 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 
 	
 		//Check if there is collision between the arm and object, then issue learning reward
-		bool collisionCheckArm = strcmp(contacts->contact(i).collision2().c_str(), COLLISION_ITEM);			//tube::tube_link::tube_collision
-		bool collisionCheckGripper = strcmp(contacts->contact(i).collision1().c_str(), COLLISION_POINT);		//arm::gripperbase::gripper_link
-		/*std::cout<<"["<<contacts->contact(i).collision1().c_str()<< "]\n";
+		bool collisionCheckArm = (strcmp(contacts->contact(i).collision1().c_str(), COLLISION_ITEM)==0) ? 1 : 0;			//tube::tube_link::tube_collision
+		bool collisionCheckGripper = (strcmp(contacts->contact(i).collision2().c_str(), COLLISION_POINT)==0) ? 1 : 0;		//arm::gripperbase::gripper_link
+		std::cout<<"["<<contacts->contact(i).collision1().c_str()<< "]\n";
 		std::cout<<"["<<contacts->contact(i).collision2().c_str()<< "]\n";
 		std::cout<<"["<<collisionCheckArm<< "]\n";
-		std::cout<<"["<<collisionCheckGripper<< "]\n";*/
+		std::cout<<"["<<collisionCheckGripper<< "]\n";
 
 		
 		if (collisionCheckArm)
@@ -258,18 +258,14 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 			rewardHistory = REWARD_WIN;
 			newReward  = true;
 			endEpisode = true;
-
-		
+			
 			if (collisionCheckGripper)
 			{	
-	
+
 			rewardHistory = REWARD_WIN*2;
 			newReward  = true;
 			endEpisode = true;
-
-			return;
 			}
-		
 		}
 		else 
 		{
