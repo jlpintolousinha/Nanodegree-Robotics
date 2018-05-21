@@ -260,7 +260,7 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 			endEpisode = true;
 		}
 			
-		else if (collisionCheckGripper && collisionCheckArm)
+		if (collisionCheckGripper && collisionCheckArm)
 		{	
 
 		rewardHistory = REWARD_WIN*2;
