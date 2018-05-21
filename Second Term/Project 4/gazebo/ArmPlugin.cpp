@@ -259,6 +259,13 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 			newReward  = true;
 			endEpisode = true;
 		}
+		else 
+		{
+			rewardHistory = REWARD_LOSS;
+			newReward  = true;
+			endEpisode = true;
+
+		}
 			
 		if (collisionCheckGripper && collisionCheckArm)
 		{	
@@ -267,16 +274,12 @@ void ArmPlugin::onCollisionMsg(ConstContactsPtr &contacts)
 		newReward  = true;
 		endEpisode = true;
 		}
-		
 		else 
 		{
 			rewardHistory = REWARD_LOSS;
 			newReward  = true;
 			endEpisode = true;
-
 		}
-		
-		
 	}
 }
 
